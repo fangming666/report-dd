@@ -1,0 +1,12 @@
+.list-head{
+  background: #28BCFF;
+  height: 57px;
+  line-height: 57px;
+  padding: 0 20px 0 14px;
+  box-sizing: border-box;
+  &>span{
+    font-size: 34px;
+    color: #FFFFFF;
+    letter-spacing: 0.41px;
+  }
+}

@@ -1,0 +1,19 @@
+.individual-item{
+  width: 395px;
+  float: right;
+  border-bottom: 1px solid #EEEEEE;
+  padding-bottom: 13px;
+  &>p{
+    font-size: 14px;
+    color: #84888A;
+    letter-spacing: -0.34px;
+    margin: 16px 0 3px;
+  }
+}
+.individual-item-content{
+  font-size: 19px;
+  color: #3A3A3A;
+  &>p{
+      margin-top: 10px;
+  }
+}

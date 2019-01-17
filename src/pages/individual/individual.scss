@@ -1,0 +1,48 @@
+.individual-item-warp{
+  background-color: white;
+  margin-top: 16px;
+  .individual-item{
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+}
+.bind-submit{
+  background: #FFFFFF;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  font-size: 17px;
+  color: #D74F3F;
+  letter-spacing: -0.41px;
+  margin-top: 16px;
+  border-radius: 0;
+  &::before{
+    border: transparent!important;
+  }
+}
+.bind-info{
+  font-size: 13px;
+  color: rgba(25,31,37,0.40);
+  letter-spacing: -0.08px;
+  line-height: 18px;
+  width: 375px;
+  margin: 16px auto;
+}
+.remove-alert{
+  b{
+    font-size: 17px;
+    color: #191F25;
+    margin: 10px auto 8px;
+    display: block;
+    text-align: center;
+  }
+  p{
+    font-size: 13px;
+    color: rgba(25,31,37,0.56);
+    letter-spacing: -0.08px;
+    width: 232px;
+    margin: 0 auto;
+    text-align: center;
+  }
+}

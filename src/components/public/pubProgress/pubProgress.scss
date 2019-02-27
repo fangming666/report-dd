@@ -1,0 +1,57 @@
+.pub-progress {
+  border-top: 1px solid #E8E8E8;
+  display: flex;
+  padding: 7px 0;
+
+  &:last-child {
+    border-bottom: 1px solid #E8E8E8;
+  }
+
+  & > div {
+    flex: 1.5;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #000000;
+
+    &:first-child {
+      padding-left: 9px;
+      flex: 1.2;
+    }
+
+    &:nth-child(2) {
+      flex: 4;
+    }
+
+    &:last-child {
+      justify-content: center;
+    }
+
+    .pub-progress-content {
+      width: 100%;
+      background: #ECECEC;
+      border-radius: 4px;
+      height: 8px;
+      position: relative;
+
+      .pub-progress-reveal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 8px;
+        border-radius: 4px;
+
+        &.warning-progress {
+          background-image: linear-gradient(269deg, #FFD800 0%, #FA9980 100%);
+        }
+
+        &.primary-progress {
+          background-image: linear-gradient(269deg, #1BDBDB 0%, #32BEF2 100%);
+          border-radius: 4px;
+        }
+      }
+    }
+
+
+  }
+}

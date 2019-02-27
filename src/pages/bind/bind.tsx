@@ -1,89 +1,28 @@
 /**
  * 绑定页面
  * */
-import * as PropTypes from "prop-types";
 import * as React from "react";
 import {Component} from "react";
-import BindInput from "../../components/bind/bindInput/bindInput"
+import BindInput from "./../../components/bind/bindInput/bindInput";
 import "./bind.scss"
 //@ts-ignore
-import {List, Button, Toast} from "antd-mobile";
+import {List, Button} from "antd-mobile";
 import {connect} from "dva";
+import hoc from "./hoc";
 
 type PageOwnProps = {
-    bind: any,
-    dispatch: any,
+    usernameChange: () => void,
+    submitAll: () => void,
+    passwordChange: () => void
 }
 
-type PageState = {
-    usernameVal: any,
-    passwordVal: any
-}
+type PageState = {}
 
-
+@connect(({bind,app}: any) => ({
+    bind,app
+}))
+@hoc
 class Bind extends Component <PageOwnProps, PageState> {
-    static contextTypes = {
-        router: PropTypes.object.isRequired,
-    };
-
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            usernameVal: '',//账号信息
-            passwordVal: '',//密码信息
-        }
-    }
-
-    //账号输入的函数
-    private usernameChange(val: any) {
-        this.setState({
-            usernameVal: val
-        })
-    };
-
-    //密码输入
-    private passwordChange(val: any) {
-        this.setState({
-            passwordVal: val
-        })
-    }
-
-    //点击绑定
-    private async submitAll() {
-        if (!this.state.usernameVal) {
-            Toast.info("账号不能为空", 1);
-        } else if (!this.state.passwordVal) {
-            Toast.info("密码不能为空", 1)
-        } else {
-            //请求绑定接口
-            let {dispatch} = this.props;
-            try {
-                await dispatch({
-                    type: 'bind/queryBind',
-                    payload: {
-                        username: this.state.usernameVal,
-                        password: this.state.passwordVal
-                    }
-                });
-                if (this.props.bind._bindCode) {
-                    //密码错误
-                    Toast.info(this.props.bind._bindMsg, 1)
-                } else {
-                    //绑定成功并跳转到考试列表
-                    Toast.info('绑定成功', 1);
-                    setTimeout(() => {
-                        this.context.router.history.push({pathname: '/'});
-                    }, 1500)
-                }
-            } catch (e) {
-
-            }
-
-
-        }
-
-    }
-
     public render() {
         return (
             <div className={'bind'}>
@@ -95,19 +34,19 @@ class Bind extends Component <PageOwnProps, PageState> {
                         inputTitle={'账号'}
                         inputPlaceholder={'请输入账号'}
                         inputType={'text'}
-                        changeInput={this.usernameChange.bind(this)}
+                        changeInput={this.props.usernameChange.bind(this)}
                     >
                     </BindInput>
                     <BindInput
                         inputTitle={'密码'}
                         inputPlaceholder={'请输入密码'}
                         inputType={'password'}
-                        changeInput={this.passwordChange.bind(this)}
+                        changeInput={this.props.passwordChange.bind(this)}
                     >
                     </BindInput>
                 </List>
                 <Button type={'ghost'} className={'bind-submit'}
-                        onClick={this.submitAll.bind(this)}>
+                        onClick={this.props.submitAll.bind(this)}>
                     绑定
                 </Button>
                 <p className={'bind-info'}>
@@ -118,8 +57,6 @@ class Bind extends Component <PageOwnProps, PageState> {
     }
 }
 
-export default connect(({bind}: any) => ({
-    bind
-}))(Bind);
+export default Bind;
 
 

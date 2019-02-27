@@ -1,0 +1,120 @@
+.epitome {
+  font-size: 22px;
+  color: #000000;
+  margin: 0 0 10px;
+  padding-top: 15px;
+  text-align: center;
+  background-color: white;
+
+  h5 {
+    margin: 0;
+  }
+}
+
+.epitome-info {
+  font-size: 17px;
+  color: #3A3A3A;
+  margin-bottom: 12px;
+  text-align: center;
+
+  span {
+    font-size: 17px;
+    color: #479DD4;
+    margin-left: 7px;
+  }
+}
+
+.epitome-content {
+  width: 383px;
+  height: 121px;
+  border-radius: 7px;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 9px 0 11px;
+  margin: 0 auto 10px;
+  position: relative;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("./../../assets/imgs/epitome@2x.png");
+
+  p {
+    margin: 0;
+    &:first-child {
+      font-size: 17px;
+      color: #89939C;
+      margin-bottom: 5px;
+    }
+
+    &:nth-child(2) {
+      font-size: 46px;
+      color: #07B2FF;
+      margin-top: -10px;
+    }
+
+    &:last-child {
+      margin-top: -12px;
+      span{
+        font-size: 16px;
+        color: #89939C;
+        margin-top: -4px;
+        &.epitome-content-item{
+          margin-right: 8px;
+        }
+      }
+    }
+
+  }
+}
+.epitome-other{
+  padding-bottom: 18px;
+}
+.epitome-genre {
+  width: 382px;
+  display: flex;
+  margin: 0 auto;
+  dl {
+    flex: 1;
+    height: 56px;
+    border-right: 1px solid #CDCDCD;
+    text-align: center;
+
+    &:last-child {
+      border: none;
+    }
+
+    dt {
+      font-size: 16px;
+      color: #868686;
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+
+    dd {
+      margin: 0;
+      width: 100%;
+      font-size: 22px;
+      color: #3A3A3A;
+      &.epitome-genre-item{
+        font-size: 14px;
+        color: #868686;
+      }
+    }
+  }
+}
+.average-difference{
+  color: #15BC83;
+}
+
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .epitome-content {
+    background-image: url("./../../assets/imgs/epitome@2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3) {
+  .epitome-content {
+    background-image: url("./../../assets/imgs/epitome@3x.png");
+  }
+}

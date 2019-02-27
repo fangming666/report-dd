@@ -26,6 +26,19 @@ router.use(removeBind);
 let exam = require("./data/exam");
 router.use(exam);
 
+let chooseReport = require("./data/chooseReport");
+router.use(chooseReport);
+
+
+let bureauEducation = require("./data/bureauEducation");//区县教育局
+let examinationSigle = require("./data/examinationSigle");//区县教研员
+let headmaster = require("./data/headmaster");//校长全科
+let schoolInstructor = require("./data/schoolInstructor");//学校教研员单科
+let classAdviser = require("./data/classAdviser");//班主任
+let classroomTeacher = require("./data/classroomTeacher");//任课老师
+router.use(classroomTeacher);
+
+
 app.use(router);
 app.listen(9090, () => {
     console.log("server is running")

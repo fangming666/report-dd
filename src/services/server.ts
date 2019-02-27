@@ -5,18 +5,30 @@ import * as fetch from 'dva/fetch';
 import {Toast} from "antd-mobile";
 import {myEmitter} from '../utils/emitter';
 
-function parseJSON(response: any) {
-    return response.json();
-}
 
 function checkStatus(response: any) {
     if (response.status >= 200 && response.status < 300) {
-        return response;
+        // 传递参数到下级
+        return response.json();
     }
     const error: any = new Error(response.statusText);
     error.response = response;
     throw error;
 }
+
+//处理code
+function manageCode(data: any) {
+    // 判断是否有一些需要全局拦截的自定义code
+    switch (data.code) {
+        case 1:
+            return new Promise((resolve, reject) => reject("参数错误"));
+        default:
+            break;
+    }
+    // 传递参数到下级
+    return data;
+}
+
 
 /**
  * Requests a URL, returning a promise.
@@ -31,9 +43,20 @@ const request = (url: string, options: any = {}, shelterSwitch: boolean = false)
         myEmitter.emit("TOGGLE_Shelter", true);
         myEmitter.emit("TOGGLE_content", false);
     }
-    return fetch(url, options)
-        .then(checkStatus)
-        .then(parseJSON)
+    return Promise.race([
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(options)
+        })
+            .then(checkStatus)
+            .then(manageCode),
+        //fetch进行超时操作
+        new Promise(function (resolve, reject) {
+            setTimeout(() => reject(new Error('request timeout')), 15000)
+        })])
         .then(data => {
             if (shelterSwitch) {
                 myEmitter.emit("TOGGLE_Shelter", false);
@@ -44,6 +67,7 @@ const request = (url: string, options: any = {}, shelterSwitch: boolean = false)
             return data;
         })
         .catch(err => {
+                throw new Error(err);
                 if (shelterSwitch) {
                     myEmitter.emit("TOGGLE_Shelter", false);
                 }

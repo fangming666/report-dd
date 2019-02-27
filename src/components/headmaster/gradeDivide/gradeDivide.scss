@@ -1,0 +1,38 @@
+.grade-divide {
+  padding-left: 17px;
+  padding-right: 17px;
+
+  dl {
+    dt {
+      font-size: 17px;
+      color: #55595C;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    dd {
+      display: flex;
+
+      span {
+        display: block;
+        flex: 1;
+        margin-right: 16px;
+        &:last-child{
+          margin-right: 0;
+        }
+        flex-basis: 62px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        background: #EFEFF4;
+        border-radius: 15px;
+        font-size: 18px;
+        color: #7C7F81;
+        &.grade-divide-active{
+          color: #FFFFFF;
+          background-image: linear-gradient(269deg, #FFD800 0%, #FA9980 100%);
+        }
+      }
+    }
+  }
+}

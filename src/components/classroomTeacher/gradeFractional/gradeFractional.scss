@@ -1,0 +1,24 @@
+.grade-fractional-scope-table {
+  width: 364px;
+  margin: 0 auto 31px;
+}
+
+.grade-fractional-table {
+  .check-btn {
+    width: 66px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    display: inline-block;
+  }
+}
+.td-school-people{
+  margin-bottom: 0;
+  span{
+    &:first-child{
+      display: inline-block;
+      width: 30px;
+      text-align: center;
+    }
+  }
+}

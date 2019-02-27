@@ -5,6 +5,7 @@ import {connect} from "dva";
 import React, {Component} from "react";
 import {Route} from "react-router-dom";
 
+
 type PageOwnProps = {
     title: string,
     exact: boolean,
@@ -15,6 +16,7 @@ type PageOwnProps = {
     dispatch: any,
     loading: any,
     app: any,
+    childRoutes: any
 }
 
 type PageState = {}
@@ -32,7 +34,7 @@ class CenterRoute extends Component<PageOwnProps, PageState> {
         //是否是绑定状态进行登录页面的跳转判断
         if (this.props.location.pathname !== "/bind") {
             try {
-                if(this.props.app._loginSpring){
+                if (this.props.app._loginSpring) {
                     await this.gainLogin();
                     if (!this.props.app._loginStatus) {
                         this.context.router.history.push({pathname: '/bind'});
@@ -56,9 +58,10 @@ class CenterRoute extends Component<PageOwnProps, PageState> {
         return (
             <div>
                 <Layout>
-                        <Route
-                            {...this.props}
-                        />
+                    <Route
+                        {...this.props}
+                    >
+                    </Route>
                 </Layout>
             </div>
         );

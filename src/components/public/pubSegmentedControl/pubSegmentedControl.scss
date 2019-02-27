@@ -1,0 +1,11 @@
+.headmaster-title{
+  background: #28BCFF;
+  &.am-wingblank.am-wingblank-lg{
+    margin: 0;
+    padding:10px 20px;
+    height: 47px;
+  }
+  .am-segment-item-selected{
+    color: #28bcff !important;
+  }
+}

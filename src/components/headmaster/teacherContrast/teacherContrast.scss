@@ -1,0 +1,22 @@
+.no-teacher{
+  background: #FFFFFF;
+  margin-top: 7px;
+  padding-top: 37px;
+  text-align: center;
+  width: 100vw;
+  overflow: hidden;
+  height: calc(100vh - 162px);
+  box-sizing: border-box;
+  img{
+    width: 316px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  p{
+    font-size: 20px;
+    color: #55595C;
+    text-align: center;
+    width: 316px;
+    margin: 44px auto 0;
+  }
+}

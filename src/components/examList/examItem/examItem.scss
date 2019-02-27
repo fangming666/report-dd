@@ -46,3 +46,12 @@
   text-overflow:ellipsis;
   white-space: nowrap;
 }
+.model-item{
+  font-size: 19px;
+  color: #000000;
+  padding: 18px 18px 16px 29px;
+  border-bottom: 1px solid #CFCFCF;
+  &:last-child{
+    border: none;
+  }
+}

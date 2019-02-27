@@ -1,0 +1,38 @@
+.pub-model-warp{
+  background-color: rgba(0,0,0,.28);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top:0;
+  z-index: 99;
+}
+.pub-model{
+  width: 359px;
+  border-radius: 8px;
+  position: absolute;
+  left: calc(50% - 180px);
+  top:70px;
+}
+.pub-model-head{
+  background: #EFF2F3;
+  height: 57px;
+  position: relative;
+  line-height: 57px;
+  font-size: 20px;
+  color: #000000;
+  padding-left: 12px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-weight: 600;
+  img{
+    position: absolute;
+    top:16px;
+    right: 20px;
+  }
+}
+.pub-model-content{
+  background-color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}

@@ -11,6 +11,7 @@ type PageDispatchProps = {}
 
 type PageOwnProps = {
     children: any,
+    location:any
 }
 
 type PageState = {
@@ -36,7 +37,7 @@ class Layout extends Component <IProps, PageState> {
             <div>
                 <div className={"content"}>
                     <TransitionGroup>
-                        <CSSTransition key={location.pathname}
+                        <CSSTransition key={this.props.location.pathname}
                                        classNames={'fade'}
                                        timeout={100}>
                             {this.props.children}

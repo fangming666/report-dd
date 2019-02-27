@@ -1,17 +1,17 @@
-import {gain_bind} from "../services/bind";
+import {gain_bind} from "../services";
 
 export default {
     namespace: 'bind',
     state: {
         _bindMsg: '',
-        _bindCode:0
+        _bindCode: 0
     },
     reducers: {
-        "changeMsg"(state: any, {payload: {message,code}}: any) {
+        "changeMsg"(state: any, {payload: {message, code}}: any) {
             return {
                 ...state,
                 bindMsg: message,
-                bindCode:code
+                bindCode: code
             }
         }
     },
@@ -19,14 +19,14 @@ export default {
         * queryBind({payload}: any, {call, put}: any) {
             try {
                 let result: any = yield call(gain_bind, payload);
-                let {message,code} = result;
+                let {message, code} = result;
                 yield put({
                     type: 'changeMsg',
                     payload: {
-                        message,code
+                        message, code
                     }
-                })
-
+                });
+                return result;
             } catch (err) {
                 console.log(`err is ${err}`)
             }

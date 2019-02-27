@@ -10,16 +10,15 @@ function RouterConfig({history, app}: any) {
     return (
         <BrowserRouter>
             <Switch>
-                    {menuGlobal.map(({path, title, ...dynamics}: any, index) => {
-                        return <CenterRouter
-                            exact
-                            key={index}
-                            title={title}
-                            path={path}
-                            component={dynamic({app, ...dynamics})}
-                        />
-                    })
-                    }
+                {menuGlobal.map(({path, title, ...dynamics}: any, index) => {
+                    return <CenterRouter
+                        key={index}
+                        title={title}
+                        path={path}
+                        component={dynamic({app, ...dynamics})}
+                    />
+                })
+                }
             </Switch>
         </BrowserRouter>
     )

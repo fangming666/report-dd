@@ -1,4 +1,4 @@
-import {gain_individual,gain_remove_bind} from "../services/individual";
+import {gain_individual,gain_remove_bind} from "../services";
 
 export default {
     namespace:'individual',

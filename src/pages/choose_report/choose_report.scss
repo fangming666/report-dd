@@ -1,0 +1,29 @@
+.choose-report {
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.am-accordion-header {
+  background: #F8F8F8 !important;
+}
+
+.am-accordion-content-box {
+  padding-left: 16px;
+  padding-top: 17px;
+}
+
+.choose-report-item {
+  background: #F0F8FD;
+  border-radius: 17px;
+  font-size: 16px;
+  color: #3C91C7;
+  padding: 8px 21px;
+  margin-right: 21px;
+  margin-bottom: 17px;
+  display: inline-block;
+}
+.choose-report-item-active{
+  background: #479DD4;
+  color: white;
+}

@@ -14,7 +14,7 @@ type PageOwnProps = {
 type PageState = {}
 
 
-class f extends Component <PageOwnProps, PageState> {
+class IndividualItem extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div className={'individual-item'}>
@@ -27,6 +27,6 @@ class f extends Component <PageOwnProps, PageState> {
     }
 }
 
-export default f;
+export default IndividualItem;
 
 

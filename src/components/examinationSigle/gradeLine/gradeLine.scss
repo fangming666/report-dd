@@ -1,0 +1,52 @@
+.grade-line {
+  background-color: white;
+  margin-top: 10px;
+  padding: 14px 18px 22px;
+}
+
+.grade-line-canvas {
+  width: 378px;
+  height: 260px;
+}
+
+.grade-line-one {
+  font-size: 16px;
+  color: #000000;
+  &::before {
+    width: 10px;
+    height: 10px;
+    background: #1890FF;
+    display: inline-block;
+    content: '';
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+}
+
+.grade-line-two {
+  @extend .grade-line-one;
+  &::before {
+    background-color: #13C2C2;
+  }
+}
+
+.grade-line-three {
+  @extend .grade-line-one;
+  &::before {
+    background-color: #2EC25B;
+  }
+}
+
+.grade-line-four {
+  @extend .grade-line-one;
+  &::before {
+    background-color: #FACC14;
+  }
+}
+
+.grade-line-five {
+  @extend .grade-line-one;
+  &::before {
+    background-color: #EF4864;
+  }
+}

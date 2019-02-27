@@ -1,0 +1,77 @@
+.focus-schools {
+  background-color: white;
+  margin-top: 10px;
+  padding-top: 14px;
+
+  h5 {
+    font-size: 19px;
+    color: #000000;
+    text-align: center;
+  }
+
+  & > div {
+    width: 377px;
+    margin: 0 auto;
+
+    & > p {
+      font-size: 22px;
+      color: #000000;
+      margin: 0;
+      font-weight: bold;
+
+      span {
+        font-weight: normal;
+        font-size: 16px;
+        color: #3A3A3A;
+        margin-left: 4px;
+      }
+    }
+  }
+  .ant-table-body {
+    width: 377px;
+    margin: 7px auto 26px;
+    border-radius: 4px;
+  }
+  .ant-table-thead{
+    tr{
+      th{
+        &:first-child{
+          padding-left: 18px!important;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+.sub-one {
+  padding-left: 10px;
+  display: inline-block;
+  font-size: 17px;
+  color: #000000;
+
+  &::before {
+    display: inline-block;
+    background: #FF3B30;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    content: '';
+    margin-right: 8px;
+  }
+}
+
+.sub-two {
+  @extend .sub-one;
+  &::before {
+    background: #FF9500;
+  }
+}
+.sub-three {
+  @extend .sub-one;
+  &::before {
+    background: #FFCC00;
+  }
+}

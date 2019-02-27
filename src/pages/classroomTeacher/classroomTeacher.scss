@@ -1,0 +1,16 @@
+.classroom-teacher {
+  .report-card {
+    .ant-table-bordered {
+      .ant-table-tbody {
+        & > tr {
+          & > td {
+            position: relative;
+              &:nth-child(3){
+                padding: 0!important;
+              }
+          }
+        }
+      }
+    }
+  }
+}

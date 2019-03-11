@@ -1,5 +1,6 @@
 /**
  *区县教育局全科：重点关注学校
+ *  focusSchoolArr: any[]
  * */
 import * as React from "react";
 import {Component} from "react";
@@ -8,7 +9,9 @@ import {Table} from "antd"
 
 
 type PageOwnProps = {
-    focusSchoolArr: any[]
+    data: any,
+    key: string
+
 }
 
 type PageState = {
@@ -16,7 +19,7 @@ type PageState = {
 }
 
 
-class FocusSchools extends Component <PageOwnProps, PageState> {
+export default class FocusSchools extends Component <PageOwnProps, PageState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -36,9 +39,9 @@ class FocusSchools extends Component <PageOwnProps, PageState> {
                 {
                     title: '对比整体',
                     dataIndex: 'contrast',
-                    render: (text: string, record: any,) => <span
-                        className={record.plusMinus ? 'contrast-success' : 'contrast-danger'}>
-                        {record.plusMinus ? '+' : '-'}{text}
+                    render: (text: number) => <span
+                        className={text >= 0 ? 'contrast-success' : 'contrast-danger'}>
+                        {text >= 0 ? '+' : ''}{text}
                     </span>
                 }
             ]
@@ -49,12 +52,12 @@ class FocusSchools extends Component <PageOwnProps, PageState> {
         return (
             <div>
                 {
-                    this.props.focusSchoolArr&&this.props.focusSchoolArr.length ?
+                    this.props.data.focusSchoolArr && this.props.data.focusSchoolArr.length ?
                         <div className={'focus-schools'}>
                             <h5 className={'box-title'}>
                                 重点关注学校
                             </h5>
-                            {this.props.focusSchoolArr.map((item: any, index: number) => {
+                            {this.props.data.focusSchoolArr.map((item: any, index: number) => {
                                 return <div key={index}>
                                     <p>{item.schoolName}<span>(整体排名第{item.ranking}名)</span></p>
                                     <Table dataSource={item.subArr}
@@ -75,6 +78,5 @@ class FocusSchools extends Component <PageOwnProps, PageState> {
     }
 }
 
-export default FocusSchools;
 
 

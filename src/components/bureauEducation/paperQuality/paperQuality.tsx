@@ -1,5 +1,6 @@
 /**
  * 区县教育局全科：试卷质量
+ *  paperQualityArr: any[]
  * */
 import {Table} from "antd";
 import * as React from "react";
@@ -10,7 +11,7 @@ import PubModel from "../../public/pubModel/pubModel";
 import './paperQuality.scss'
 
 type PageOwnProps = {
-    paperQualityArr: any[]
+   data:any
 }
 
 type PageState = {
@@ -67,7 +68,7 @@ class PaperQuality extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div>
-                {this.props.paperQualityArr&&this.props.paperQualityArr.length ?
+                {this.props.data.paperQualityArr&&this.props.data.paperQualityArr.length ?
                     <div className={'paper-quality'}>
                         <h5 className={'box-title'}>
                             试卷质量
@@ -85,7 +86,7 @@ class PaperQuality extends Component <PageOwnProps, PageState> {
                         </PubModel> : null}
                         <Table
                             className={'wathet-table'}
-                            dataSource={this.props.paperQualityArr}
+                            dataSource={this.props.data.paperQualityArr}
                             columns={this.state.columns}
                             bordered
                             size={"middle"}

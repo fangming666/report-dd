@@ -1,5 +1,6 @@
 /**
  * 优劣学科
+ * goodBaseSubjectArr: any[]
  * */
 // @ts-ignore
 import * as F2 from "@antv/f2";
@@ -11,7 +12,7 @@ import GoodBaseArr from "./../../../utils/goodBaseArr";//优劣学科的重新�
 
 
 type PageOwnProps = {
-    goodBaseSubjectArr: any[]
+    data:any
 }
 
 type PageState = {
@@ -46,12 +47,12 @@ class GoodBaseSubject extends Component <PageOwnProps, PageState> {
     }
 
     componentDidMount(): void {
-        if (!this.props.goodBaseSubjectArr.length) {
+        if (!this.props.data.goodBaseSubjectArr.length) {
             return;
         }
         this.setState({
-            goodArr: new GoodBaseArr(this.props.goodBaseSubjectArr).getGood(),
-            baseArr: new GoodBaseArr(this.props.goodBaseSubjectArr).getBase()
+            goodArr: new GoodBaseArr(this.props.data.goodBaseSubjectArr).getGood(),
+            baseArr: new GoodBaseArr(this.props.data.goodBaseSubjectArr).getBase()
         });
 
 
@@ -62,7 +63,7 @@ class GoodBaseSubject extends Component <PageOwnProps, PageState> {
         });
 
         //数值最大最小范围
-        chart.source(this.props.goodBaseSubjectArr, {
+        chart.source(this.props.data.goodBaseSubjectArr, {
             score: {
                 min: 0,
                 max: 100
@@ -131,7 +132,7 @@ class GoodBaseSubject extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <React.Fragment>
-                {this.props.goodBaseSubjectArr&&this.props.goodBaseSubjectArr.length ?
+                {this.props.data.goodBaseSubjectArr&&this.props.data.goodBaseSubjectArr.length ?
                     <div className={'good-base-subject base-box'}>
                         <h5 className={'box-title'}>学校优劣学科</h5>
                         <span className={'data-interpretation'} onClick={this.open.bind(this)}>

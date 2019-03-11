@@ -1,4 +1,4 @@
-import {gain_individual,gain_remove_bind} from "../services";
+import {gain_individual} from "../services";
 
 export default {
     namespace:'individual',
@@ -35,14 +35,5 @@ export default {
             }
 
         },
-        //解除绑定
-        * queryRemoveBind(_: any, {call}: any) {
-            try {
-                yield call(gain_remove_bind);
-            } catch (err) {
-                console.log(`err is ${err}`)
-            }
-
-        }
     }
 }

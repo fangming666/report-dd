@@ -1,5 +1,7 @@
 /**
  * 各科平均分
+ * subjectAverageArr: any[],
+ switch: boolean//区分校长（true）/班主任(false)
  * */
 import {Table} from "antd";
 import * as React from "react";
@@ -8,8 +10,7 @@ import {DifferenceJudge} from "../../../utils";
 
 
 type PageOwnProps = {
-    subjectAverageArr: any[],
-    switch: boolean//区分校长（true）/班主任(false)
+    data: any
 }
 
 type PageState = {
@@ -30,7 +31,7 @@ class SubjectAverage extends Component <PageOwnProps, PageState> {
     };
 
     componentDidMount(): void {
-        if (!this.props.subjectAverageArr || !this.props.subjectAverageArr.length) {
+        if (!this.props.data.subjectAverageArr || !this.props.data.subjectAverageArr.length) {
             return;
         }
         this.setState({
@@ -46,15 +47,15 @@ class SubjectAverage extends Component <PageOwnProps, PageState> {
                     </span>
                 },
                 {
-                    title: `均分(${this.props.switch ? '校|联考' : '班|学校'})`,
+                    title: `均分(${this.props.data.switch ? '校|联考' : '班|学校'})`,
                     align: 'center',
                     width: 112,
-                    dataIndex: `${this.props.switch ? 'schoolAverage' : 'classAverage'}`,
+                    dataIndex: `${this.props.data.switch ? 'schoolAverage' : 'classAverage'}`,
                     render: (text: string, record: any,) => {
                         let differenceJudge = new DifferenceJudge(record.rate);//对类名的判断
                         let resultClassName: string = differenceJudge.goJudge();//span的类名
                         return <p className={'table-full'}><span
-                            className={resultClassName}>{text}</span><span>{this.props.switch ? record.examinationAverage : record.schoolAverage}</span>
+                            className={resultClassName}>{text}</span><span>{this.props.data.switch ? record.examinationAverage : record.schoolAverage}</span>
                         </p>
                     }
                 },
@@ -70,7 +71,7 @@ class SubjectAverage extends Component <PageOwnProps, PageState> {
                     },
                 },
                 {
-                    title: `${this.props.switch ? '联考名次' : '校次'}`,
+                    title: `${this.props.data.switch ? '联考名次' : '校次'}`,
                     dataIndex: 'ranking',
                     width: 80,
                     align: 'center'
@@ -87,13 +88,13 @@ class SubjectAverage extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <React.Fragment>
-                {this.props.subjectAverageArr && this.props.subjectAverageArr.length ?
+                {this.props.data.subjectAverageArr && this.props.data.subjectAverageArr.length ?
                     <div className={'base-box'}>
                         <h5 className={'box-title'}>
                             各科平均分
                         </h5>
 
-                        <Table dataSource={this.props.subjectAverageArr}
+                        <Table dataSource={this.props.data.subjectAverageArr}
                                columns={this.state.columns}
                                bordered
                                className={'wathet-table'}

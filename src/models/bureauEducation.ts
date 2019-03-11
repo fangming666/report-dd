@@ -3,20 +3,25 @@ import {gain_bureauEducation} from "../services";
 export default {
     namespace: 'bureauEducation',
     state: {
-        _bureauEducation: {},
+        _bureauEducation: [],
+        _navArr: [],//分段器的数组
         _subjectName: '',//科目名称（教师对比学科量化分）
     },
     reducers: {
         "changeBureauEducation"(state: any, {payload: {data}}: any) {
             return {
                 ...state,
-                _bureauEducation: data
+                _bureauEducation: data,
+                _navArr: data.reduce((initArr:string[], item:any)  => {
+                    initArr = [...initArr,item.name];
+                    return initArr
+                }, [])
             }
         },
         "changeSubjectName"(state: any, {payload: {subjectName}}: any) {
             return {
                 ...state,
-                _subjectName: subjectName
+                _subjectName: subjectName,
             }
         }
     },

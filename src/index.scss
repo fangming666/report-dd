@@ -192,10 +192,12 @@ body {
 
 .grade-yellow {
   background: #FFF4DF;
+  position: relative;
 }
 
 .grade-yellow-other {
   background: #FFF9EE;
+  position: relative;
 
 }
 
@@ -203,32 +205,40 @@ body {
   background: #E0F4DB;
   font-size: 16px;
   color: #000000;
+  position: relative;
 }
 
 .grade-green-other {
   background: #F5FFF3;
+  position: relative;
 }
 
 .grade-blue {
+  position: relative;
   background: #A6E2F5;
 }
 
 .grade-blue-other {
   background: #DFF7FF;
+  position: relative;
 }
 
 .grade-purple {
   background: #A6C8F5;
+  position: relative;
 }
 
 .grade-purple-other {
   background: #D2E5FF;
+  position: relative;
 }
 
 .grade-pink {
   background: #F9C5E7;
+  position: relative;
 }
 
 .grade-pink-other {
   background: #FFE3F5;
+  position: relative;
 }

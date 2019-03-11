@@ -15,3 +15,11 @@
     background: #F9FAFA!important;
   }
 }
+.wathet-table-other{
+  tr{
+    td:nth-child(3){
+      padding: 0!important;
+      height: 47px;
+    }
+  }
+}

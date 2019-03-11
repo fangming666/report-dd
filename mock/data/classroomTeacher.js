@@ -46,73 +46,97 @@ router.use("/report/bureauEducation", (req, res) => {
         let data = Mock.mock({
             code: 0,
             message: '',
-            data: {
-                //概述
-                summary: {
-                    classPeopleNum: 100,//班级人数
-                    classNum: 10,//班级的总数
-                    lackNum: 5,//缺考人数
-                    average: 99.2,//平均分
-                    fullMark: 750,//满分
-                    highRun: 740,//最高分
-                    schoolAverage: 567.8,//校平均分
-                    averageDifference: 710.3,//均分差
-                    ranking: 10,//排名
-                    examinationHighRun: 705.5,//联考最高分
-                    lackArr: ['陈玉楼', '鹧鸪哨', '马振邦', '花铃', '陈玉楼', '鹧鸪哨', '马振邦', '花铃'],//缺考名单
-
-                    //等级分数线
-                    gradeFractionalArr: [{
-                        key: 0,
-                        grade: "A",
-                        scope: '[101.0,120]',
-                        standard: 97.4,
-                        school: 150,
-                        rank: 5,
-                        peopleNum: 8,
-                        peopleArr: ['房明', '马云', '马化腾', '王健林', '张小龙', '王思聪', '王磊', '雷军']
-                    },
-                        {
-                            key: 1,
-                            grade: "B",
-                            scope: '[82.0,101.0]',
-                            standard: 56.7,
-                            school: 56.7,
-                            rank: 4,
-                            peopleNum: 5,
-                            peopleArr: ['王健林', '张小龙', '王思聪', '王磊', '雷军']
+            data: [
+                {
+                    "name": "班级概述",
+                    "components": [
+                        { //考试概括
+                            "view": "epitome/epitome",
+                            "course_id": 1,
+                            "data": {
+                                rank: false,//概括内容的显示开关，false，
+                                rankTitle: false,//title的显示方式，false
+                                averageTitle: '班级平均分',//概括的标题
+                                classPeopleNum: 100,//班级人数
+                                classNum: 10,//班级的总数
+                                lackNum: 5,//缺考人数
+                                average: 99.2,//平均分
+                                fullMark: 750,//满分
+                                highRun: 740,//最高分
+                                schoolAverage: 567.8,//校平均分
+                                averageDifference: -18.5,//均分差
+                                ranking: 10,//排名
+                                examinationHighRun: 705.5,//联考最高分
+                                lackArr: ['陈玉楼', '鹧鸪哨', '马振邦', '花铃', '陈玉楼', '鹧鸪哨', '马振邦', '花铃'],//缺考名单
+                            }
                         }, {
-                            key: 2,
-                            grade: "C",
-                            scope: '[41.0,82.0]',
-                            standard: 88.8,
-                            school: 58.6,
-                            rank: 3,
-                            peopleNum: 0,
-                            peopleArr: []
-                        }, {
-                            key: 3,
-                            grade: "D",
-                            scope: '[17.0,41.0]',
-                            standard: 22.5,
-                            school: 96,
-                            rank: 2,
-                            peopleNum: 13,
-                            peopleArr: ['房明', '马云', '马化腾', '王健林', '张小龙', '王思聪', '王磊', '雷军', '刘强东', '王中石', '董明珠', '章泽天', '杨超越']
-                        }, {
-                            key: 4,
-                            grade: "E",
-                            scope: '[0,17.0)',
-                            standard: 25,
-                            school: 33,
-                            rank: 1,
-                            peopleNum: 1,
-                            peopleArr: ['令狐冲']
-                        }]
+                            "view": "classroomTeacher/gradeFractional/gradeFractional",
+                            "course_id": 1,
+                            data: {
+                                //等级分数线
+                                gradeFractionalArr: [{
+                                    key: 0,
+                                    grade: "A",
+                                    scope: '[101.0,120]',
+                                    standard: 97.4,
+                                    school: 150,
+                                    rank: 5,
+                                    peopleNum: 8,
+                                    peopleArr: ['房明', '马云', '马化腾', '王健林', '张小龙', '王思聪', '王磊', '雷军']
+                                },
+                                    {
+                                        key: 1,
+                                        grade: "B",
+                                        scope: '[82.0,101.0]',
+                                        standard: 56.7,
+                                        school: 56.7,
+                                        rank: 4,
+                                        peopleNum: 5,
+                                        peopleArr: ['王健林', '张小龙', '王思聪', '王磊', '雷军']
+                                    }, {
+                                        key: 2,
+                                        grade: "C",
+                                        scope: '[41.0,82.0]',
+                                        standard: 88.8,
+                                        school: 58.6,
+                                        rank: 3,
+                                        peopleNum: 0,
+                                        peopleArr: []
+                                    }, {
+                                        key: 3,
+                                        grade: "D",
+                                        scope: '[17.0,41.0]',
+                                        standard: 22.5,
+                                        school: 96,
+                                        rank: 2,
+                                        peopleNum: 13,
+                                        peopleArr: ['房明', '马云', '马化腾', '王健林', '张小龙', '王思聪', '王磊', '雷军', '刘强东', '王中石', '董明珠', '章泽天', '杨超越']
+                                    }, {
+                                        key: 4,
+                                        grade: "E",
+                                        scope: '[0,17.0)',
+                                        standard: 25,
+                                        school: 33,
+                                        rank: 1,
+                                        peopleNum: 1,
+                                        peopleArr: ['令狐冲']
+                                    }]
+                            },
+                        }
+                    ],
                 },
-                //成绩单
-                reportCard: reportCardArr
-            }
+                {
+                    "name": "成绩单",
+                    components: [{
+                        view: "reportCard/reportCard",
+                        course_id: 1,
+                        data: {
+                            teacherSwitch: false,//true为班主任,false为任课老师
+                            reportCardArr,
+                        }
+                    }]
+
+                }]
         });
         return res.json(data)
     }, 1000)

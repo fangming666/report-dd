@@ -14,7 +14,8 @@ import alertImg from "./../../assets/imgs/alert.png"
 const alert = Modal.alert;
 type PageOwnProps = {
     dispatch: any,
-    individual: any
+    individual: any,
+    history:any
 }
 
 type PageState = {}
@@ -53,13 +54,13 @@ class Individual extends Component <PageOwnProps, PageState> {
     //请求解除绑定
     private async goRemove() {
         try {
-            let {dispatch} = this.props;
+            let {dispatch,history} = this.props;
             await dispatch({
-                type: "individual/queryRemoveBind"
+                type: "app/removeBind"
             });
             Toast.info("解除成功",1);
             setTimeout(() => {
-                this.context.router.history.push({pathname: '/bind'});
+                history.push({pathname: '/bind'});
             }, 1500)
         } catch (e) {
 

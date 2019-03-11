@@ -1,5 +1,6 @@
 /**
  * 区县教育局全科：各科平均分
+ *     sectionAverageArr: any[]
  * */
 import {Table} from "antd";
 import * as React from "react";
@@ -7,7 +8,7 @@ import {Component} from "react";
 import './sectionAverage.scss'
 
 type PageOwnProps = {
-    sectionAverageArr: any[]
+    data: any
 }
 
 type PageState = {
@@ -71,13 +72,13 @@ class SectionAverage extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div>
-                {this.props.sectionAverageArr&&this.props.sectionAverageArr.length ?
+                {this.props.data.sectionAverageArr && this.props.data.sectionAverageArr.length ?
                     <div className={'section-average'}>
                         <h5 className={'box-title'}>
                             全科平均分
                         </h5>
 
-                        <Table dataSource={this.props.sectionAverageArr}
+                        <Table dataSource={this.props.data.sectionAverageArr}
                                className={'wathet-table'}
                                columns={this.state.columns}
                                bordered

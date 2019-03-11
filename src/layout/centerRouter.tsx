@@ -16,7 +16,8 @@ type PageOwnProps = {
     dispatch: any,
     loading: any,
     app: any,
-    childRoutes: any
+    childRoutes: any,
+    history: any,
 }
 
 type PageState = {}
@@ -36,6 +37,7 @@ class CenterRoute extends Component<PageOwnProps, PageState> {
             try {
                 if (this.props.app._loginSpring) {
                     await this.gainLogin();
+                    //当没绑定的时候跳到绑定页面
                     if (!this.props.app._loginStatus) {
                         this.context.router.history.push({pathname: '/bind'});
                     }
@@ -43,11 +45,19 @@ class CenterRoute extends Component<PageOwnProps, PageState> {
             } catch (e) {
 
             }
+        } else {
+            // await this.gainLogin();
+            // //当没绑定的时候跳到绑定页面
+            // if (this.props.app._loginStatus) {
+            //     this.context.router.history.push({pathname: '/'});
+            // }
+
         }
     }
 
     //登录
     private async gainLogin() {
+
         let {dispatch} = this.props;
         await dispatch({
             type: 'app/queryLogin',

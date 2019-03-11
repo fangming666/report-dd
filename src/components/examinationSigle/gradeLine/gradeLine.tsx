@@ -1,5 +1,6 @@
 /**
  * 等级分数线及比例
+ *  gradeLineArr: any[],
  * */
 import {Table} from "antd";
 import * as React from "react";
@@ -11,7 +12,7 @@ import * as F2 from "@antv/f2";
 import * as PieLabel from "@antv/f2/lib/plugin/pie-label"
 
 type PageOwnProps = {
-    gradeLineArr: any[],
+    data: any,
     schoolProportionSwitch?: boolean//校比例的开关
 
 }
@@ -71,7 +72,7 @@ class GradeLine extends Component <PageOwnProps, PageState> {
                     title: `${this.props.schoolProportionSwitch ? '校比例 | 联考(%)' : '人数'}`,
                     dataIndex: `${this.props.schoolProportionSwitch ? 'scale' : 'people'}`,
                     align: 'center',
-                    width: 130,
+                    width: 100,
                     render: (text: string, record: any) => {
                         if (this.props.schoolProportionSwitch) {
                             return <div>
@@ -99,7 +100,7 @@ class GradeLine extends Component <PageOwnProps, PageState> {
 
     componentDidMount(): void {
         //重组数组
-        let resultGradeLineArr: any = this.props.gradeLineArr.reduce((initArr: any, item: any, index: number) => {
+        let resultGradeLineArr: any = this.props.data.gradeLineArr.reduce((initArr: any, item: any, index: number) => {
             if (index < 5) {
                 initArr = [...initArr, item];
             }
@@ -186,14 +187,14 @@ class GradeLine extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div>
-                {this.props.gradeLineArr && this.props.gradeLineArr.length ?
+                {this.props.data.gradeLineArr && this.props.data.gradeLineArr.length ?
                     <div className={'grade-line'}>
                         <h5 className={'box-title'}>
                             等级分数线及比例
                         </h5>
                         <canvas id={'gradeLineCanvas'} className={'grade-line-canvas'}>
                         </canvas>
-                        <Table dataSource={this.props.gradeLineArr}
+                        <Table dataSource={this.props.data.gradeLineArr}
                                columns={this.state.columns}
                                bordered
                                size={"middle"}

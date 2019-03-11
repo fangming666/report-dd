@@ -1,6 +1,12 @@
 /**
- * rank{boolean}区县教育局全科：学校对比/校长：班级对比
+ *     comparisonArr: any[],
+ *     comparisonTitle?: string,//标题
+ columnOneTitle?: string,//第一列的标题
+ columnOneTitleKey?: string,//第一列的索引key
+ columnLastTitle?: string,//最后一列的标题
+ columnLastTitleKey?: string//最后一列的索引key
  * */
+import {connect} from "dva";
 import {Table} from "antd";
 import * as React from "react";
 import {Component} from "react";
@@ -8,42 +14,34 @@ import './comparison.scss'
 import {DifferenceJudge} from "./../../../utils/index"
 
 type PageOwnProps = {
-    comparisonArr: any[],
-    comparisonTitle?:string,//标题
-    rank?: boolean//学校对比/班级对比的开关
-    columnOneTitle?:string,//第一列的标题
-    columnOneTitleKey?:string,//第一列的索引key
-    columnLastTitle?:string,//最后一列的标题
-    columnLastTitleKey?:string//最后一列的索引key
+    data: any,
+    bureauEducation: any
 }
 
 type PageState = {
     columns: any[]
 }
 
+@connect(({bureauEducation}: any) => ({
+    bureauEducation
+}))
 
 class Comparison extends Component <PageOwnProps, PageState> {
-    static defaultProps = {
-        rank: true,
-        comparisonTitle:'学校对比',
-        columnOneTitle:'学校',
-        columnOneTitleKey:'schoolName',
-        columnLastTitle:'总人数|缺考',
-        columnLastTitleKey:'lack',
-    };
 
     constructor(props: any) {
         super(props);
         this.state = {
-            columns:[]
+            columns: []
         }
     }
+
     componentDidMount(): void {
         this.setState({
             columns: [
                 {
-                    title: this.props.columnOneTitle,
-                    dataIndex: this.props.columnOneTitleKey,
+                    title: this.props.data.columnOneTitle,
+                    dataIndex: this.props.data.columnOneTitleKey,
+                    key: 0,
                     width: 93,
                     fixed: 'left',
                     render: (text: string) => <span className={'td-school-name'}>
@@ -53,6 +51,7 @@ class Comparison extends Component <PageOwnProps, PageState> {
                 {
                     title: '平均分',
                     dataIndex: 'average',
+                    key: 1,
                     width: 82,
                     render: (text: string, record: any,) => {
                         let differenceJudge = new DifferenceJudge(record.difference);//对类名的判断
@@ -65,6 +64,7 @@ class Comparison extends Component <PageOwnProps, PageState> {
                 {
                     title: '均分差',
                     dataIndex: 'difference',
+                    key: 2,
                     width: 82,
                     align: 'center',
                     render: (text: string, record: any,) => {
@@ -79,12 +79,14 @@ class Comparison extends Component <PageOwnProps, PageState> {
                 {
                     title: '排名',
                     dataIndex: 'ranking',
+                    key: 3,
                     width: 82,
                     align: 'center'
                 },
                 {
                     title: '标准差',
                     dataIndex: 'standard',
+                    key: 4,
                     width: 82,
                     align: 'center',
                     render: (text: string) => <span className={'td-standard'}>
@@ -92,33 +94,36 @@ class Comparison extends Component <PageOwnProps, PageState> {
                     </span>
                 },
                 {
-                    title: this.props.columnLastTitle,
-                    dataIndex: this.props.columnLastTitleKey,
+                    title: this.props.data.columnLastTitle,
+                    dataIndex: this.props.data.columnLastTitleKey,
+                    key: 5,
                     width: 96,
                     align: 'center',
                     render: (text: string, record: any) => {
-                        return this.props.rank?<p className={'table-full'}>{text}<span>{record.overall}</span></p>
-                            :<span className={'td-standard'}>{text}</span>
+                        return this.props.data.comparisonTitle === '学校对比' ?
+                            <p className={'table-full'}>{text}<span>{record.overall}</span></p>
+                            : <span className={'td-standard'}>{text}</span>
                     }
                 }]
         })
     }
+
     componentWillUnmount(): void {
         this.setState({
-            columns:[]
+            columns: []
         })
     }
 
     public render() {
         return (
             <div>
-                {this.props.comparisonArr&&this.props.comparisonArr.length ?
+                {this.props.data.comparisonArr && this.props.data.comparisonArr.length ?
                     <div className={'school-comparison'}>
                         <h5 className={'box-title'}>
-                            {this.props.comparisonTitle}
+                            {`${this.props.bureauEducation._subjectName}${this.props.data.comparisonTitle}`}
                         </h5>
 
-                        <Table dataSource={this.props.comparisonArr}
+                        <Table dataSource={this.props.data.comparisonArr}
                                columns={this.state.columns}
                                bordered
                                className={'wathet-table'}

@@ -1,5 +1,6 @@
 /**
  * 班级等级分数线
+ *  gradeFractionalArr: any[]
  * */
 import * as React from "react";
 import {Table} from "antd";
@@ -7,7 +8,7 @@ import {Component} from "react";
 import "./gradeFractional.scss"
 import PubModel from "../../../components/public/pubModel/pubModel";//各等级名单的模态框
 type PageOwnProps = {
-    gradeFractionalArr: any[]
+    data: any
 }
 
 type PageState = {
@@ -42,14 +43,14 @@ class GradeFractional extends Component <PageOwnProps, PageState> {
             columns: [{
                 title: '等级',
                 dataIndex: 'grade',
-                align:'center',
+                align: 'center',
                 render: (text: string) => <span className={'td-school-name'}>
                         {text}
                     </span>
             }, {
                 title: '班达标比例 | 校(%)',
                 dataIndex: 'standard',
-                align:'center',
+                align: 'center',
                 render: (text: string, record: any) => <p className={'table-full'}>
                     <span
                         className={`${text > record.school ? 'contrast-success' : text < record.school ? 'contrast-danger' : 'td-school-name'}`}>
@@ -63,7 +64,7 @@ class GradeFractional extends Component <PageOwnProps, PageState> {
                 {
                     title: '排名',
                     dataIndex: 'rank',
-                    align:'center',
+                    align: 'center',
                     render: (text: string) => <span className={'td-school-name'}>
                         {text}
                     </span>
@@ -75,7 +76,7 @@ class GradeFractional extends Component <PageOwnProps, PageState> {
                         <span className={'td-school-name'}>
                         {text}
                         </span>
-                         <span className={'check-btn'} onClick={this.open.bind(this, record)}>查看</span>
+                        <span className={'check-btn'} onClick={this.open.bind(this, record)}>查看</span>
                     </p>
                 }
             ]//数据大表格的列
@@ -101,12 +102,12 @@ class GradeFractional extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <>
-                {this.props.gradeFractionalArr && this.props.gradeFractionalArr.length ?
+                {this.props.data.gradeFractionalArr && this.props.data.gradeFractionalArr.length ?
                     <div className={'grade-fractional base-box'}>
                         <h4 className={'box-title'}>
                             等级分数线
                         </h4>
-                        <Table dataSource={this.props.gradeFractionalArr}
+                        <Table dataSource={this.props.data.gradeFractionalArr}
                                columns={this.state.scopeColumns}
                                bordered
                                className={'grade-fractional-scope-table'}
@@ -115,7 +116,7 @@ class GradeFractional extends Component <PageOwnProps, PageState> {
                                rowClassName={(record, index) => index % 2 ? 'table-row-zebra' : 'table-row-normal'}
                         >
                         </Table>
-                        <Table dataSource={this.props.gradeFractionalArr}
+                        <Table dataSource={this.props.data.gradeFractionalArr}
                                columns={this.state.columns}
                                bordered
                                className={'grade-fractional-table'}

@@ -1,5 +1,6 @@
 /**
  * 等级划分对比
+ *  divisionContrast: any[],
  * */
 import * as React from "react";
 import {Component} from "react";
@@ -10,7 +11,7 @@ import {GradeInfo, GradeDivideChange, CompareSort} from "../../../utils";
 
 
 type PageOwnProps = {
-    gradeDivideArr: any[],
+    data: any,
     bureauEducation: any
 }
 
@@ -37,27 +38,27 @@ class GradeDivide extends Component <PageOwnProps, PageState> {
     }
 
     componentDidMount(): void {
-        if (!this.props.gradeDivideArr || !this.props.gradeDivideArr.length) {
+        if (!this.props.data.divisionContrast || !this.props.data.divisionContrast.length) {
             return;
         }
         this.setState({
-            gradeInfoArr: new CompareSort(new GradeInfo(this.props.gradeDivideArr).regroup()).sort()
+            gradeInfoArr: new CompareSort(new GradeInfo(this.props.data.divisionContrast).regroup()).sort()
         })
     }
 
     componentWillReceiveProps(nextProps: Readonly<PageOwnProps>, nextContext: any): void {
-        if (!this.props.gradeDivideArr || !this.props.gradeDivideArr.length) {
+        if (!this.props.data.divisionContrast || !this.props.data.divisionContrast.length) {
             return;
         }
         this.setState({
-            gradeInfoArr: new CompareSort(new GradeInfo(nextProps.gradeDivideArr).regroup()).sort()
+            gradeInfoArr: new CompareSort(new GradeInfo(nextProps.data.divisionContrast).regroup()).sort()
         })
     }
 
 
     //等级的点击事件
     private changeGrade(num: number): any {
-        let ownArr: object[] = new GradeInfo(this.props.gradeDivideArr, [], num).regroup();//当前点击的数组
+        let ownArr: object[] = new GradeInfo(this.props.data.divisionContrast, [], num).regroup();//当前点击的数组
         let estateSwitch: boolean = true;//当前是否激活active的开关
         this.setState({
             gradeArr: new GradeDivideChange(this.state.gradeArr, num).change(),
@@ -72,7 +73,7 @@ class GradeDivide extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <>
-                {this.props.gradeDivideArr && this.props.gradeDivideArr.length ?
+                {this.props.data.divisionContrast && this.props.data.divisionContrast.length ?
                     <div className={'grade-divide base-box'}>
                         <h5 className={'box-title'}>{this.props.bureauEducation._subjectName}-等级划分对比</h5>
                         <dl>

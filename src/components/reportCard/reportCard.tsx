@@ -1,5 +1,7 @@
 /**
  * 成绩单
+ * reportCardArr: object[],
+ *   teacherSwitch: boolean//true为班主任,false任课老师
  * */
 import {Table} from "antd";
 import {Modal} from "antd-mobile";
@@ -10,8 +12,8 @@ import StudentDetail from "../studentDetail/studentDetail";//成绩单学生详�
 import {GradeColor} from "../../utils";//等级的颜色类
 
 type PageOwnProps = {
-    reportCardArr: object[],
-    teacherSwitch: boolean//true为班主任,false任课老师
+    data: any
+
 }
 
 type PageState = {
@@ -22,9 +24,6 @@ type PageState = {
 
 
 class ReportCard extends Component <PageOwnProps, PageState> {
-    static defaultProps = {
-        teacherSwitch: true
-    };
 
     constructor(props: any) {
         super(props);
@@ -49,22 +48,23 @@ class ReportCard extends Component <PageOwnProps, PageState> {
                         {text}
                     </span>
             }, {
-                title: `${this.props.teacherSwitch ? '班次 | 校次' : '等级'}`,
-                dataIndex: `${this.props.teacherSwitch ? 'classRank' : 'grade'}`,
-                width: 125,
+                title: `${this.props.data.teacherSwitch ? '班次 | 校次' : '等级'}`,
+                dataIndex: `${this.props.data.teacherSwitch ? 'classRank' : 'grade'}`,
+                width: 105,
                 align: 'center',
-                render: (text: string, record: any, index: number) => this.props.teacherSwitch ?
+                render: (text: string, record: any, index: number) => this.props.data.teacherSwitch ?
                     <p className={'table-full'}><span
                         className={'td-school-name'}>{text}</span><span>{record.schoolRank}</span>
-                    </p> : <div className={`base-grade-td ${new GradeColor(text, index).getColor()}`}>
+                    </p> :
+                    <div className={`base-grade-td ${new GradeColor(text, index).getColor()}`}>
                         {text}
                     </div>
             },
                 {
-                    title: `${this.props.teacherSwitch ? '查看各科成绩' : '班次 | 校次'}`,
-                    dataIndex: `${this.props.teacherSwitch ? '' : 'classRank'}`,
+                    title: `${this.props.data.teacherSwitch ? '查看各科成绩' : '班次 | 校次'}`,
+                    dataIndex: `${this.props.data.teacherSwitch ? '' : 'classRank'}`,
                     align: 'center',
-                    render: (text: string, record: any) => this.props.teacherSwitch ?
+                    render: (text: string, record: any) => this.props.data.teacherSwitch ?
                         <span onClick={this.check.bind(this, record)}
                               className={'check-btn'}>查看</span>
                         : <p className={'table-full'}><span
@@ -92,11 +92,10 @@ class ReportCard extends Component <PageOwnProps, PageState> {
         })
     }
 
-
     public render() {
         return (
             <div className={'report-card'}>
-                {this.props.reportCardArr && this.props.reportCardArr.length ?
+                {this.props.data.reportCardArr && this.props.data.reportCardArr.length ?
                     <React.Fragment>
                         <Modal
                             className={'report-card-modal'}
@@ -109,10 +108,10 @@ class ReportCard extends Component <PageOwnProps, PageState> {
                             </StudentDetail>
                         </Modal>
 
-                        <Table dataSource={this.props.reportCardArr}
+                        <Table dataSource={this.props.data.reportCardArr}
                                columns={this.state.columns}
                                bordered
-                               className={'wathet-table'}
+                               className={'wathet-table wathet-table-other'}
                                size={"middle"}
                                pagination={false}
                                scroll={{y: 600}}

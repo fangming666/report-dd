@@ -1,4 +1,4 @@
-import {gain_login} from "../services";
+import {gain_login, gain_remove_bind} from "../services";
 
 export default {
     namespace: 'app',
@@ -25,6 +25,7 @@ export default {
         }
     },
     effects: {
+        //获取登录状态
         * queryLogin(_: null, {call, put}: any) {
             try {
                 let result: any = yield call(gain_login);
@@ -45,6 +46,20 @@ export default {
                 console.log(`err is ${err}`)
             }
 
+        },
+        //解除绑定
+        * removeBind(_: null, {call, put}: any) {
+            try {
+                yield call(gain_remove_bind);
+                yield put({
+                    type: 'changeLogin',
+                    payload: {
+                        loginStatus: false
+                    }
+                });
+            } catch (err) {
+                console.log(`err is ${err}`)
+            }
         }
     }
 }

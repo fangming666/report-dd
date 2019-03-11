@@ -36,7 +36,7 @@ let headmaster = require("./data/headmaster");//校长全科
 let schoolInstructor = require("./data/schoolInstructor");//学校教研员单科
 let classAdviser = require("./data/classAdviser");//班主任
 let classroomTeacher = require("./data/classroomTeacher");//任课老师
-router.use(classroomTeacher);
+router.use(bureauEducation);
 
 
 app.use(router);

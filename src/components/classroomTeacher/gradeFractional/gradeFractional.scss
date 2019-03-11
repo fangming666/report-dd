@@ -4,12 +4,19 @@
 }
 
 .grade-fractional-table {
+  th{
+    background: #EDF8FF!important;
+  }
   .check-btn {
     width: 66px;
     height: 30px;
     line-height: 30px;
     font-size: 15px;
     display: inline-block;
+    background: #F0F8FD;
+    border-radius: 15px;
+    text-align: center;
+    color: #3C91C7;
   }
 }
 .td-school-people{

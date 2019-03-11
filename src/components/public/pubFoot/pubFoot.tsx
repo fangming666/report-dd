@@ -11,7 +11,7 @@ type PageOwnProps = {}
 type PageState = {}
 
 
-class PubFoot extends Component <PageOwnProps, PageState> {
+export default class PubFoot extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div className={'pub-foot-warp'}>
@@ -27,7 +27,5 @@ class PubFoot extends Component <PageOwnProps, PageState> {
         )
     }
 }
-
-export default PubFoot;
 
 

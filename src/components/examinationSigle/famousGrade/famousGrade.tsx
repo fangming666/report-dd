@@ -1,5 +1,6 @@
 /**
  * 区县教研员：各校等级划分
+ * famousGradeArr: any[]
  * */
 import {Table} from "antd";
 import * as React from "react";
@@ -7,7 +8,7 @@ import {Component} from "react";
 import './famousGrade.scss'
 
 type PageOwnProps = {
-    famousGradeArr: any[]
+    data:any
 }
 
 type PageState = {
@@ -29,13 +30,13 @@ class FamousGrade extends Component <PageOwnProps, PageState> {
     }
 
     componentDidMount(): void {
-        if (!this.props.famousGradeArr.length) {
+        if (!this.props.data.famousGradeArr||!this.props.data.famousGradeArr.length) {
             return;
         }
         //拆分组合数据
         this.setState({
-            sum: this.props.famousGradeArr[0].data.length,
-            dataSource: this.props.famousGradeArr.map((item: any) => {
+            sum: this.props.data.famousGradeArr[0].data.length,
+            dataSource: this.props.data.famousGradeArr.map((item: any) => {
                 const everyRow = {key: item.key, school: item.school};
                 for (const child of item.data) {
                     everyRow[child.title] = child.score + ' | ' + child.ranking;
@@ -50,7 +51,7 @@ class FamousGrade extends Component <PageOwnProps, PageState> {
                         width: 80,
                         render: (text: string) => <span className={'td-school-name'}>{text}</span>
                     },
-                    ...this.props.famousGradeArr[0].data.map((item: any) => ({
+                    ...this.props.data.famousGradeArr[0].data.map((item: any) => ({
                         title: item.title,
                         dataIndex: item.title,
                         width: 90,
@@ -67,10 +68,10 @@ class FamousGrade extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div>
-                {this.props.famousGradeArr&&this.props.famousGradeArr.length ?
+                {this.props.data.famousGradeArr&&this.props.data.famousGradeArr.length ?
                     <div className={'famous-gradeArr'}>
                         <h5 className={'box-title'}>
-                            各校等级划分
+                           {this.props.data.viewTitle}
                         </h5>
                         <Table dataSource={this.state.dataSource}
                                columns={this.state.columns}

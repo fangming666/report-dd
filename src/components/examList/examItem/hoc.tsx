@@ -7,7 +7,9 @@ import * as ReactDOM from "react-dom";
 
 type PageOwnProps = {
     exam_list: any,
-    location: any
+    location: any,
+    dispatch: any,
+    app:any
 }
 
 type PageState = {
@@ -17,7 +19,8 @@ type PageState = {
     reportArr: any[],
     modelSwitch: boolean,
     grade: string,
-    examName: string
+    examName: string,
+    exam_id: string | number
 }
 
 let ptr: any = null;
@@ -37,12 +40,13 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
                 reportArr: [],//报告列表
                 modelSwitch: false,//报告模态框的开关
                 grade: '',//年纪
-                examName: ''//
+                examName: '',//
+                exam_id: '',//考试的ID
             }
         }
 
         componentDidMount() {
-            if(ReactDOM.findDOMNode(ptr)){
+            if (ReactDOM.findDOMNode(ptr)) {
                 //@ts-ignore
                 const hei = this.state.height - ReactDOM.findDOMNode(ptr).offsetTop - 57;
                 setTimeout(() => this.setState({
@@ -54,16 +58,28 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
 
 
         //上拉刷新的回调函数
-        private refresh() {
+        private async refresh() {
             this.setState({refreshing: true});
-            setTimeout(() => {
+            let {dispatch} = this.props;
+            try {
+                let currPage = this.props.exam_list._currPage;
+                await dispatch({
+                    type: "exam_list/queryExam",
+                    payload: {
+                        currPage,
+                        initSwitch: false
+                    }
+                });
                 this.setState({refreshing: false});
-            }, 1000);
+            } catch (e) {
+
+            }
+
         }
 
         //打开报告
         private openReport(...req: any) {
-            let [promulgate, reportArr, grade, examName] = req;
+            let [promulgate, reportArr, grade, examName, exam_id] = req;
             if (!promulgate) {
                 //报告暂未开放
                 this.setState({
@@ -78,10 +94,18 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
                 //报告开放
                 this.setState({
                     reportArr,
-                    modelSwitch: true,
                     grade,
-                    examName
+                    examName,
+                    exam_id
                 });
+                //当只有一个的时候无需弹窗直接进入选择报告
+                if(reportArr.length === 1){
+                    this.toReport(reportArr[0].group_id)
+                }else{
+                    this.setState({
+                        modelSwitch: true
+                    })
+                }
             }
         }
 
@@ -93,10 +117,21 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
         }
 
         //跳转到选择报告页面
-        private toReport(reportId: any) {
+        private async toReport(reportId: any) {
+            await this.props.dispatch({
+                type: "app/changeBack",
+                payload: {
+                    backSwitch: true
+                }
+            });
             this.context.router.history.push({
-                pathname: '/choose_report',
-                state: {reportId: reportId, grade: this.state.grade, examName: this.state.examName}
+                pathname: `/choose_report`,
+                state: {
+                    group_id: reportId,
+                    grade: this.state.grade,
+                    examName: this.state.examName,
+                    exam_id: this.state.exam_id
+                }
             });
         }
 

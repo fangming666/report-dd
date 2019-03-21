@@ -15,7 +15,8 @@ type PageOwnProps = {
     state: any,
     changeIndividualImg: () => void,
     goIndividual: () => void,
-    exam_list: any
+    exam_list: any,
+    app: any
 }
 
 type PageState = {}
@@ -40,13 +41,16 @@ class Exam_list extends Component <PageOwnProps, PageState> {
                          onClick={this.props.goIndividual.bind(this)}/>
                 </span>
                 </ListHead>
-                {this.props.exam_list._examArr.length ?
-                    // 考试列表
-                    <ExamItem>
-                    </ExamItem> :
-                    // 考试列表为空
-                    <NoExam>
-                    </NoExam>}
+                {this.props.app._shelter ?
+                    <>
+                    </>
+                    : this.props.exam_list._examArr.length ?
+                        // 考试列表
+                        <ExamItem>
+                        </ExamItem> :
+                        // 考试列表为空
+                        <NoExam>
+                        </NoExam>}
             </div>
         )
     }

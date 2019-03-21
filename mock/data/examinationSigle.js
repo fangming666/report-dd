@@ -5,11 +5,11 @@ let Mock = require("mockjs");
 let express = require("express");
 
 let router = express.Router();
-router.use("/report/bureauEducation", (req, res) => {
+router.use("/talk/report/index", (req, res) => {
     setTimeout(() => {
         let data = Mock.mock({
-            code: 0,
-            message: '',
+            status: 200,
+            msg: '',
             data: [
                 {
                     name: '整体概述',
@@ -38,6 +38,7 @@ router.use("/report/bureauEducation", (req, res) => {
                             //等级分数线及比例
                             course_id: 0,
                             data: {
+                                schoolProportionSwitch:false,//校单科为ｔｒｕｅ
                                 gradeLineArr: [
                                     {
                                         score: '[100,120]',//分数线

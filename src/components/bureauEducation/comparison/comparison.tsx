@@ -120,7 +120,7 @@ class Comparison extends Component <PageOwnProps, PageState> {
                 {this.props.data.comparisonArr && this.props.data.comparisonArr.length ?
                     <div className={'school-comparison'}>
                         <h5 className={'box-title'}>
-                            {`${this.props.bureauEducation._subjectName}${this.props.data.comparisonTitle}`}
+                            {`${this.props.data.comparisonTitle}`}
                         </h5>
 
                         <Table dataSource={this.props.data.comparisonArr}

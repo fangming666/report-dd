@@ -85,7 +85,7 @@ let data = [
     },
     {
         "name": "教师对比",
-        coures: [{
+        courses: [{
             subject: '语文',//科目名称
             id: "C1",//科目ID
             components: [

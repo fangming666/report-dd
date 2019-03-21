@@ -7,11 +7,11 @@ export default {
         _bindCode: 0
     },
     reducers: {
-        "changeMsg"(state: any, {payload: {message, code}}: any) {
+        "changeMsg"(state: any, {payload: {msg, status}}: any) {
             return {
                 ...state,
-                bindMsg: message,
-                bindCode: code
+                _bindMsg: msg,
+                _bindCode: status
             }
         }
     },
@@ -19,16 +19,18 @@ export default {
         * queryBind({payload}: any, {call, put}: any) {
             try {
                 let result: any = yield call(gain_bind, payload);
-                let {message, code} = result;
+                localStorage.setItem("user_id", result['user_id']);
+                let {msg, status} = result;
                 yield put({
                     type: 'changeMsg',
                     payload: {
-                        message, code
+                        msg, status
                     }
                 });
                 return result;
             } catch (err) {
-                console.log(`err is ${err}`)
+                console.log(`err is ${err}`);
+                return Promise.reject(err);
             }
 
         }

@@ -1,19 +1,19 @@
 import {gain_individual} from "../services";
 
 export default {
-    namespace:'individual',
+    namespace: 'individual',
     state: {
         _username: "",
         _accountNumber: "",
         _teach: []
     },
     reducers: {
-        "changeIndividual"(state: any, {payload: {username, accountNumber, teach}}: any) {
+        "changeIndividual"(state: any, {payload: {username, real_name, teacher_class}}: any) {
             return {
                 ...state,
                 _username: username,
-                _accountNumber: accountNumber,
-                _teach: teach
+                _accountNumber: real_name,
+                _teach: teacher_class
             }
         }
     },
@@ -22,16 +22,17 @@ export default {
         * queryIndividual(_: any, {call, put}: any) {
             try {
                 let result: any = yield call(gain_individual);
-                let {username, accountNumber, teach} = result;
+                let {username, real_name, teacher_class} = result;
                 yield put({
                     type: 'changeIndividual',
                     payload: {
-                        username, accountNumber, teach
+                        username, real_name, teacher_class
                     }
                 })
 
             } catch (err) {
-                console.log(`err is ${err}`)
+                console.log(`err is ${err}`);
+                return Promise.reject(err);
             }
 
         },

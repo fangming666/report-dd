@@ -5,14 +5,15 @@ let Mock = require("mockjs");
 let express = require("express");
 
 let router = express.Router();
-router.use("/report/bureauEducation", (req, res) => {
+router.use("/talk/report/index", (req, res) => {
     setTimeout(() => {
         let data = Mock.mock({
-            code: 0,
-            message: '',
+            status: 200,
+            msg: '',
             data: [
                 {//概述
                     "name": "概述",
+                    tab: 0,
                     "components": [
                         {
                             //考试概括
@@ -152,13 +153,14 @@ router.use("/report/bureauEducation", (req, res) => {
                 },
                 {//教师对比
                     "name": "教师对比",
-                    coures: [
+                    tab: 1,
+                    courses: [//coures
                         {
                             subject: '语文',//科目名称
                             components: [{
                                 view: "headmaster/quantization/quantization",
                                 "course_id": 1,
-                                data:{
+                                data: {
                                     //量化
                                     quantization: [{
                                         name: '朱湘',//姓名
@@ -188,10 +190,10 @@ router.use("/report/bureauEducation", (req, res) => {
                                 }
 
                             }, {
-                                view:'bureauEducation/comparison/comparison',
-                                course_id:1,
-                                data:{
-                                    comparisonTitle:'-平均分标准差',//组件名称
+                                view: 'bureauEducation/comparison/comparison',
+                                course_id: 1,
+                                data: {
+                                    comparisonTitle: '-平均分标准差',//组件名称
                                     columnOneTitle: '教师',//第一列的名称
                                     columnOneTitleKey: 'teacher',//第一列的索引
                                     columnLastTitle: '总人数|缺考',//最后一列的名称
@@ -236,11 +238,12 @@ router.use("/report/bureauEducation", (req, res) => {
                                             standard: 115.35,//标准差
                                             lack: 65,//缺考人数
                                             overall: 900//总人数
-                                        }]}
-                                }, {
-                                view:'headmaster/gradeDivide/gradeDivide',
-                                course_id:1,
-                                data:{
+                                        }]
+                                }
+                            }, {
+                                view: 'headmaster/gradeDivide/gradeDivide',
+                                course_id: 1,
+                                data: {
                                     //划分对比
                                     divisionContrast: [{
                                         name: '朱湘',//姓名
@@ -316,7 +319,7 @@ router.use("/report/bureauEducation", (req, res) => {
                                         }],
                                     }]
                                 }
-                                }
+                            }
 
 
                             ]
@@ -330,7 +333,7 @@ router.use("/report/bureauEducation", (req, res) => {
                             components: [{
                                 view: "headmaster/quantization/quantization",
                                 "course_id": 1,
-                                data:{
+                                data: {
                                     //量化
                                     quantization: [{
                                         name: '阿紫',//姓名
@@ -360,10 +363,10 @@ router.use("/report/bureauEducation", (req, res) => {
                                 }
 
                             }, {
-                                view:'bureauEducation/comparison/comparison',
-                                course_id:1,
-                                data:{
-                                    comparisonTitle:'-平均分标准差',//组件名称
+                                view: 'bureauEducation/comparison/comparison',
+                                course_id: 1,
+                                data: {
+                                    comparisonTitle: '-平均分标准差',//组件名称
                                     columnOneTitle: '教师',//第一列的名称
                                     columnOneTitleKey: 'teacher',//第一列的索引
                                     columnLastTitle: '总人数|缺考',//最后一列的名称
@@ -407,11 +410,12 @@ router.use("/report/bureauEducation", (req, res) => {
                                             standard: 115.35,//标准差
                                             lack: 65,//缺考人数
                                             overall: 900//总人数
-                                        }]}
+                                        }]
+                                }
                             }, {
-                                view:'headmaster/gradeDivide/gradeDivide',
-                                course_id:1,
-                                data:{
+                                view: 'headmaster/gradeDivide/gradeDivide',
+                                course_id: 1,
+                                data: {
                                     //划分对比
                                     divisionContrast: [{
                                         name: '阿紫',//姓名
@@ -497,7 +501,7 @@ router.use("/report/bureauEducation", (req, res) => {
                             components: [{
                                 view: "headmaster/quantization/quantization",
                                 "course_id": 1,
-                                data:{
+                                data: {
                                     //量化
                                     quantization: [{
                                         name: '朱湘',//姓名
@@ -527,10 +531,10 @@ router.use("/report/bureauEducation", (req, res) => {
                                 }
 
                             }, {
-                                view:'bureauEducation/comparison/comparison',
-                                course_id:1,
-                                data:{
-                                    comparisonTitle:'-平均分标准差',//组件名称
+                                view: 'bureauEducation/comparison/comparison',
+                                course_id: 1,
+                                data: {
+                                    comparisonTitle: '-平均分标准差',//组件名称
                                     columnOneTitle: '教师',//第一列的名称
                                     columnOneTitleKey: 'teacher',//第一列的索引
                                     columnLastTitle: '总人数|缺考',//最后一列的名称
@@ -574,11 +578,12 @@ router.use("/report/bureauEducation", (req, res) => {
                                             standard: 115.35,//标准差
                                             lack: 65,//缺考人数
                                             overall: 900//总人数
-                                        }]}
+                                        }]
+                                }
                             }, {
-                                view:'headmaster/gradeDivide/gradeDivide',
-                                course_id:1,
-                                data:{
+                                view: 'headmaster/gradeDivide/gradeDivide',
+                                course_id: 1,
+                                data: {
                                     //划分对比
                                     divisionContrast: [{
                                         name: '朱湘',//姓名
@@ -668,7 +673,7 @@ router.use("/report/bureauEducation", (req, res) => {
                             components: [{
                                 view: "headmaster/quantization/quantization",
                                 "course_id": 1,
-                                data:{
+                                data: {
                                     //量化
                                     quantization: [{
                                         name: '朱湘',//姓名
@@ -698,10 +703,10 @@ router.use("/report/bureauEducation", (req, res) => {
                                 }
 
                             }, {
-                                view:'bureauEducation/comparison/comparison',
-                                course_id:1,
-                                data:{
-                                    comparisonTitle:'-平均分标准差',//组件名称
+                                view: 'bureauEducation/comparison/comparison',
+                                course_id: 1,
+                                data: {
+                                    comparisonTitle: '-平均分标准差',//组件名称
                                     columnOneTitle: '教师',//第一列的名称
                                     columnOneTitleKey: 'teacher',//第一列的索引
                                     columnLastTitle: '总人数|缺考',//最后一列的名称
@@ -745,11 +750,12 @@ router.use("/report/bureauEducation", (req, res) => {
                                             standard: 115.35,//标准差
                                             lack: 65,//缺考人数
                                             overall: 900//总人数
-                                        }]}
+                                        }]
+                                }
                             }, {
-                                view:'headmaster/gradeDivide/gradeDivide',
-                                course_id:1,
-                                data:{
+                                view: 'headmaster/gradeDivide/gradeDivide',
+                                course_id: 1,
+                                data: {
                                     //划分对比
                                     divisionContrast: [{
                                         name: '朱湘',//姓名
@@ -839,7 +845,7 @@ router.use("/report/bureauEducation", (req, res) => {
                             components: [{
                                 view: "headmaster/quantization/quantization",
                                 "course_id": 1,
-                                data:{
+                                data: {
                                     //量化
                                     quantization: [{
                                         name: '朱湘',//姓名
@@ -869,10 +875,10 @@ router.use("/report/bureauEducation", (req, res) => {
                                 }
 
                             }, {
-                                view:'bureauEducation/comparison/comparison',
-                                course_id:1,
-                                data:{
-                                    comparisonTitle:'-平均分标准差',//组件名称
+                                view: 'bureauEducation/comparison/comparison',
+                                course_id: 1,
+                                data: {
+                                    comparisonTitle: '-平均分标准差',//组件名称
                                     columnOneTitle: '教师',//第一列的名称
                                     columnOneTitleKey: 'teacher',//第一列的索引
                                     columnLastTitle: '总人数|缺考',//最后一列的名称
@@ -916,11 +922,12 @@ router.use("/report/bureauEducation", (req, res) => {
                                             standard: 115.35,//标准差
                                             lack: 65,//缺考人数
                                             overall: 900//总人数
-                                        }]}
+                                        }]
+                                }
                             }, {
-                                view:'headmaster/gradeDivide/gradeDivide',
-                                course_id:1,
-                                data:{
+                                view: 'headmaster/gradeDivide/gradeDivide',
+                                course_id: 1,
+                                data: {
                                     //划分对比
                                     divisionContrast: [{
                                         name: '朱湘',//姓名

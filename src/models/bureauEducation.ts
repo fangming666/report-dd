@@ -6,14 +6,29 @@ export default {
         _bureauEducation: [],
         _navArr: [],//分段器的数组
         _subjectName: '',//科目名称（教师对比学科量化分）
+        _tabSwitch: false,//分段器点击触发props
     },
     reducers: {
+        //改变分段器
+        "changeTabSwitch"(state: any) {
+            return {
+                ...state,
+                _tabSwitch: false
+            }
+        },
+        "emptyBureauEducation"(state: any) {
+            return {
+                ...state,
+                _bureauEducation: [],
+                _navArr: []
+            }
+        },
         "changeBureauEducation"(state: any, {payload: {data}}: any) {
             return {
                 ...state,
                 _bureauEducation: data,
-                _navArr: data.reduce((initArr:string[], item:any)  => {
-                    initArr = [...initArr,item.name];
+                _navArr: data.reduce((initArr: string[], item: any) => {
+                    initArr = [...initArr, item.name];
                     return initArr
                 }, [])
             }
@@ -37,7 +52,8 @@ export default {
                     }
                 })
             } catch (err) {
-                throw new Error(err)
+                console.log("err is", err);
+                return Promise.reject(err);
             }
 
         }

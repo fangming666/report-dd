@@ -9,7 +9,8 @@ import GradeInfo from "./gradeInfo"
 import GradeDivideChange from "./gradeDivideChange"
 import CompareSort from "./compareSort"
 import GradeColor from "./gradeColor"
-
+import ExamGradeColor from "./examGradeColor"
+import GetRequest from "./getRequest"
 export {
     config,
     DifferenceJudge,
@@ -18,5 +19,7 @@ export {
     GradeInfo,
     GradeDivideChange,
     CompareSort,
-    GradeColor
+    GradeColor,
+    ExamGradeColor,
+    GetRequest
 }

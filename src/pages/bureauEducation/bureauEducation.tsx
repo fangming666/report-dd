@@ -1,6 +1,3 @@
-/**
- * 校长全科
- * */
 import {connect} from "dva";
 import * as React from "react";
 import {Component} from "react";
@@ -23,13 +20,14 @@ type PageOwnProps = {
     open?: any,
     close?: any,
     onChange?: any,
+    app?: any
 }
 
 
 type PageState = {}
 
-@connect(({bureauEducation}: any) => ({
-    bureauEducation
+@connect(({bureauEducation, app}: any) => ({
+    bureauEducation, app
 }))
 @hoc
 
@@ -47,45 +45,10 @@ class Headmaster extends Component <PageOwnProps, PageState> {
                             <PubSegmentedControl
                                 values={this.props.bureauEducation._navArr}
                                 fnChange={this.props.onChange.bind(this)}
-                            >}
+                            >
                             </PubSegmentedControl> : null}
-                        {!this.props.state.contentSwitch ?
-                            <React.Fragment>
-                                {
-                                    this.props.bureauEducation._bureauEducation[0].components.map((item: any) => {
-                                        DynamicDetail = Loadable({
-                                            loader: () => import(`../../components/${item.view}`),
-                                            loading: () => <LoadingDom>
-                                            </LoadingDom>
-                                        });
-                                        if (item.view === "epitome/epitome" && !item.data.rankTitle) {
-                                            return <React.Fragment key={item.view}>
-                                                {this.props.state.closeSwitch ?
-                                                    <PubModel closeModel={this.props.close.bind(this)}
-                                                              headTitle={'缺考名单'}>
-                                                        <p className={'lack-modal'}>
-                                                            {item.data.lackArr.length &&
-                                                            item.data.lackArr.map((lackItem: string, lackIndex: number) =>
-                                                                <span key={lackIndex}
-                                                                      className={'lack-item'}>{lackItem}</span>)}
-                                                        </p>
-                                                    </PubModel> : null}
-                                                <DynamicDetail data={item.data}
-                                                               key={item.view}
-                                                               openModal={this.props.open.bind(this)}
-                                                >
-                                                </DynamicDetail>
-                                            </React.Fragment>
-                                        }
-                                        return <DynamicDetail data={item.data} key={item.view}>
-                                        </DynamicDetail>
-                                    })
-                                }
-
-                                <PubFoot>
-                                </PubFoot>
-                            </React.Fragment>
-                            : this.props.bureauEducation._navArr[1] === "教师对比" ?
+                        <React.Fragment>
+                            {this.props.bureauEducation._bureauEducation[this.props.state.PubSegmentedControlActive].tab ?
                                 <React.Fragment>
                                     {/*教师对比*/}
                                     <PubNav
@@ -97,24 +60,43 @@ class Headmaster extends Component <PageOwnProps, PageState> {
                                     >
                                     </TeacherContrast>
                                 </React.Fragment>
-                                : <React.Fragment>
-                                    {/*成绩单*/}
+                                :
+                                <>
                                     {
-                                        this.props.bureauEducation._bureauEducation[1].components.map((item: any) => {
-                                                DynamicDetail = Loadable({
-                                                    loader: () => import(`../../components/${item.view}`),
-                                                    loading: () => <LoadingDom>
-                                                    </LoadingDom>
-                                                });
-                                                return <DynamicDetail
-                                                    key={item.view}
-                                                    data={item.data}>
-                                                </DynamicDetail>
+                                        this.props.bureauEducation._bureauEducation[this.props.state.PubSegmentedControlActive].components.map((item: any) => {
+                                            DynamicDetail = Loadable({
+                                                loader: () => import(`../../components/${item.view}`),
+                                                loading: () => <LoadingDom>
+                                                </LoadingDom>
+                                            });
+                                            if (item.view === "epitome/epitome" && !item.data.rankTitle) {
+                                                return <React.Fragment key={item.view}>
+                                                    {this.props.state.closeSwitch ?
+                                                        <PubModel closeModel={this.props.close.bind(this)}
+                                                                  headTitle={'缺考名单'}>
+                                                            <p className={'lack-modal'}>
+                                                                {item.data.lackArr.length &&
+                                                                item.data.lackArr.map((lackItem: string, lackIndex: number) =>
+                                                                    <span key={lackIndex}
+                                                                          className={'lack-item'}>{lackItem}</span>)}
+                                                            </p>
+                                                        </PubModel> : null}
+                                                    <DynamicDetail data={item.data}
+                                                                   key={item.view}
+                                                                   openModal={this.props.open.bind(this)}
+                                                    >
+                                                    </DynamicDetail>
+                                                </React.Fragment>
                                             }
-                                        )}
+                                            return <DynamicDetail data={item.data} key={item.view}>
+                                            </DynamicDetail>
+                                        })
+                                    }
+                                    <PubFoot>
+                                    </PubFoot></>
+                            }
 
-                                </React.Fragment>
-                        }
+                        </React.Fragment>
 
                     </React.Fragment>
                     : null

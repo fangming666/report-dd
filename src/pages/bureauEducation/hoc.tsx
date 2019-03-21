@@ -12,7 +12,8 @@ type PageState = {
     contentSwitch: number,
     subjectArr: string[],
     teacherJson: any,
-    closeSwitch: boolean
+    closeSwitch: boolean,
+    PubSegmentedControlActive: number
 }
 
 
@@ -26,6 +27,7 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
                 subjectArr: [],//科目列表
                 teacherJson: {},//教师对比的json
                 closeSwitch: false,//缺考名单模态框的开关
+                PubSegmentedControlActive: 0,//点击的index,
             }
         }
 
@@ -47,13 +49,16 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
         // 分段器的change事件
         private onChange = (num: number) => {
             this.setState({
-                contentSwitch: num
-            })
+                PubSegmentedControlActive: num,
+            }, () => {
+                this.changeCourses(this.props.bureauEducation);
+            });
+
         };
 
         // //科目导航的点击事件
         private async subNavClick(subjectName: string) {
-            if (!this.props.bureauEducation._bureauEducation[1].coures.length || this.props.bureauEducation._bureauEducation.length < 2) {
+            if (!this.props.bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].courses.length || !this.props.bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].tab) {
                 return;
             }
             let {dispatch} = this.props;
@@ -63,8 +68,7 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
                     subjectName
                 }
             },);
-
-            for (let child of this.props.bureauEducation._bureauEducation[1].coures) {
+            for (let child of this.props.bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].courses) {
                 if (child.subject === subjectName) {
                     this.setState({
                         teacherJson: child
@@ -76,27 +80,27 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
         }
 
 
-        componentWillReceiveProps(nextProps: Readonly<PageOwnProps>): void {
-            if (!nextProps.bureauEducation._bureauEducation.length || nextProps.bureauEducation._bureauEducation.length < 2 || nextProps.bureauEducation._bureauEducation[1].name !== "教师对比") {
+        public changeCourses(bureauEducation: any) {
+            if (!bureauEducation._bureauEducation.length || !bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].tab) {
                 return
             }
             //更新dva中的科目名称
-            if (!nextProps.bureauEducation._subjectName) {
+            if (!bureauEducation._subjectName) {
                 this.props.dispatch({
                     type: "bureauEducation/changeSubjectName",
                     payload: {
-                        subjectName: nextProps.bureauEducation._bureauEducation[1].coures[0].subject
+                        subjectName: bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].courses[0].subject
                     }
                 });
             }
             //重组数组
             this.setState({
-                subjectArr: nextProps.bureauEducation._bureauEducation[1].coures.reduce((initArr: string[], item: any) => {
+                subjectArr: bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].courses.reduce((initArr: string[], item: any) => {
                     initArr = [...initArr, item.subject];
                     return initArr
                 }, []),
-                teacherJson: nextProps.bureauEducation._bureauEducation[1].coures[0]
-            })
+                teacherJson: bureauEducation._bureauEducation[this.state.PubSegmentedControlActive].courses[0]
+            });
         }
 
         async componentDidMount() {
@@ -104,14 +108,25 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
                 reportId: this.props.reportId
             });
             let {dispatch} = this.props;
-            await dispatch({
-                type: "bureauEducation/queryBureauEducation",
-                payload: {
-                    reportId: this.state.reportId
-                }
-            });
+            try {
+                await dispatch({
+                    type: "bureauEducation/queryBureauEducation",
+                    payload: {
+                        report_id: this.props.reportId
+                    }
+                });
+            } catch (e) {
+                console.log("e is", e)
+            }
+            this.changeCourses(this.props.bureauEducation);
         }
 
+        async componentWillUnmount() {
+            let {dispatch} = this.props;
+            await dispatch({
+                type: "bureauEducation/emptyBureauEducation"
+            })
+        }
 
         render() {
             const props: object = {

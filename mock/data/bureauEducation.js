@@ -5,12 +5,12 @@ let Mock = require("mockjs");
 let express = require("express");
 
 let router = express.Router();
-router.use("/report/bureauEducation", (req, res) => {
+router.use("/talk/report/index", (req, res) => {
     setTimeout(() => {
         //区县教育局
         let data = Mock.mock({
-            code: 0,
-            message: '',
+            status: 200,
+            msg: '',
             data: [
                 {
                     name: "整体概述",

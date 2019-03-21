@@ -48,8 +48,9 @@ class Epitome extends Component <PageOwnProps, PageState> {
                         </p> :
                         <p>
                             本班考生{this.props.data.classPeopleNum}人，缺考{this.props.data.lackNum}人
-                            <span
-                            onClick={this.props.openModal.bind(this)}>查看缺考名单</span>
+                            {this.props.data.lackNum>0?<span
+                                onClick={this.props.openModal.bind(this)}>查看缺考名单</span>:null}
+
                         </p>
                     }
                 </div>

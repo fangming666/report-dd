@@ -6,6 +6,7 @@ import {Component} from "react";
 
 type PageOwnProps = {
     bind: any,
+    app: any,
     dispatch: any,
     history: any
 }
@@ -53,35 +54,37 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
             } else {
                 //请求绑定接口
                 let {dispatch} = this.props;
-                let result: any;
                 try {
-                    result = await dispatch({
+                    let result: any = await dispatch({
                         type: 'bind/queryBind',
                         payload: {
                             username: this.state.usernameVal,
                             password: this.state.passwordVal
                         }
                     });
-                    if (this.props.bind._bindCode) {
-                        //密码错误
-                        Toast.info(this.props.bind._bindMsg, 1)
-                    } else {
-                        //知晓权限
-                        dispatch({
-                            type: "app/changeAuthority",
-                            payload: {
-                                authority: result.authority
-                            }
-                        });
-                        //绑定成功并跳转到考试列表
-                        Toast.info('绑定成功', 1);
-                        setTimeout(() => {
-                            this.props.history.push({
-                                pathname: "/",
+                    let {user_id, talk_user_id} = result;
+                    localStorage.setItem("session", JSON.stringify({user_id, talk_user_id}));
+                    //改变app里面login的状态
+                    await dispatch({
+                        type: "app/changeLogin",
+                        payload: {
+                            user_id
+                        }
+                    });
+                    //绑定成功并跳转到考试列表
+                    Toast.info('绑定成功', 1);
+                    this.props.dispatch({
+                        type: "app/changeBack",
+                        payload: {
+                            backSwitch: true
+                        }
+                    });
+                    setTimeout(() => {
+                        this.props.history.push({
+                            pathname: "/",
 
-                            })
-                        }, 1500)
-                    }
+                        })
+                    }, 1500)
                 } catch (e) {
 
                 }
@@ -89,6 +92,21 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
 
             }
 
+        }
+
+        componentDidMount(): void {
+            this.props.dispatch({
+                type: "app/changeBack",
+                payload: {
+                    backSwitch: false
+                }
+            });
+        }
+
+        componentWillUnmount(): void {
+            if (!this.props.app._backSwitch) {
+                this.props.history.push("/bind")
+            }
         }
 
 

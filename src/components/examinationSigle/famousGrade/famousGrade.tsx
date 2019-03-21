@@ -8,7 +8,7 @@ import {Component} from "react";
 import './famousGrade.scss'
 
 type PageOwnProps = {
-    data:any
+    data: any
 }
 
 type PageState = {
@@ -30,7 +30,7 @@ class FamousGrade extends Component <PageOwnProps, PageState> {
     }
 
     componentDidMount(): void {
-        if (!this.props.data.famousGradeArr||!this.props.data.famousGradeArr.length) {
+        if (!this.props.data.famousGradeArr || !this.props.data.famousGradeArr.length) {
             return;
         }
         //拆分组合数据
@@ -68,10 +68,10 @@ class FamousGrade extends Component <PageOwnProps, PageState> {
     public render() {
         return (
             <div>
-                {this.props.data.famousGradeArr&&this.props.data.famousGradeArr.length ?
+                {this.props.data.famousGradeArr && this.props.data.famousGradeArr.length ?
                     <div className={'famous-gradeArr'}>
                         <h5 className={'box-title'}>
-                           {this.props.data.viewTitle}
+                            {this.props.data.viewTitle}
                         </h5>
                         <Table dataSource={this.state.dataSource}
                                columns={this.state.columns}

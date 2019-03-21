@@ -25,6 +25,7 @@ let data = [
                 view: "examinationSigle/gradeLine/gradeLine",
                 //等级分数线及比例
                 course_id: 0,
+                schoolProportionSwitch:false,//区县单科为ｆａｌｓｅ
                 data: {
                     gradeLineArr: [
                         {

@@ -6,13 +6,14 @@ type PageOwnProps = {
     dispatch: any,
     history: any,
     app: any,
-    match:any
+    match: any
 }
 
 type PageState = {
     headTitle: string,//报告的小标题
     reportId: number//报考的id
     reportDom: any
+    goChooseSwitch: boolean//跳转选择报告的开关，当点击的时候为true，防止跳转错误
 }
 
 
@@ -23,12 +24,13 @@ const reportHoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentCl
             this.state = {
                 headTitle: "全科",
                 reportId: -1,
-                reportDom: null
+                reportDom: null,
+                goChooseSwitch: false
             }
         }
 
         componentDidMount(): void {
-            if(this.props.location.state){
+            if (this.props.location.state) {
                 //修改页面的title
                 document.title = `${this.props.location.state.grade} ${this.props.location.state.examName}`;
                 //修改报告的小标题
@@ -40,13 +42,26 @@ const reportHoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentCl
 
         //跳转到选择报告的页面
         goChooseReport(): void {
-            this.props.history.push({
-                pathname: '/choose_report',
-                state: {
-                    grade: this.props.location.state.grade,
-                    examName: this.props.location.state.examName
-                }
-            })
+            this.setState({
+                goChooseSwitch: true
+            }, () => {
+                this.props.history.push({
+                    pathname: '/choose_report',
+                    state: {
+                        grade: this.props.location.state.grade,
+                        examName: this.props.location.state.examName,
+                        exam_id: this.props.location.state.exam_id,
+                        group_id: this.props.location.state.group_id,
+                    }
+                })
+            });
+        }
+
+        //回退到列表页，
+        componentWillUnmount(): void {
+            !this.state.goChooseSwitch &&  this.props.history.push({
+                pathname: '/',
+            });
         }
 
 

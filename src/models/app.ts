@@ -1,65 +1,85 @@
-import {gain_login, gain_remove_bind} from "../services";
+import {gain_remove_bind} from "../services";
+import {GetRequest} from "../utils";
 
 export default {
     namespace: 'app',
     state: {
-        _loginStatus: true,
+        _userId: true,
         _loginSpring: 1,
         _authority: -1,//权限
+        _shelter: true,//遮挡白版
+        _backSwitch: false,//页面的返回开关（当能跳转的时候置为true,不能跳转的时候置为false）
+
     },
     reducers: {
         //改变登录状态
-        "changeLogin"(state: any, {payload: {loginStatus}}: any) {
+        "changeLogin"(state: any, {payload: {user_id}}: any) {
             return {
                 ...state,
-                _loginStatus: loginStatus,
+                _userId: user_id,
                 _loginSpring: 0
             }
         },
-        //知晓权限
-        "changeAuthority"(state: any, {payload: {authority}}: any) {
+
+        //改变白版的显示状态
+        "changeShelter"(state: any, {payload: {shelter}}: any) {
             return {
                 ...state,
-                _authority: authority
+                _shelter: shelter
+            }
+        },
+        //改变绑定返回的状态
+        "changeBack"(state: any, {payload: {backSwitch}}: any) {
+            return {
+                ...state,
+                _backSwitch: backSwitch
             }
         }
     },
     effects: {
         //获取登录状态
         * queryLogin(_: null, {call, put}: any) {
+            // @ts-ignore
             try {
-                let result: any = yield call(gain_login);
-                let {loginStatus, authority} = result;
+                let user_id = '';
+                let result: any = yield new GetRequest().the();
+                // @ts-ignore
+                if (localStorage.getItem("user_id") && !result.hasOwnProperty("user_id")) {
+                    //@ts-ignore
+                    user_id = JSON.parse(localStorage.getItem("user_id"))
+                } else {
+                    localStorage.setItem("talk_user_id", result.talk_user_id || null);
+                    localStorage.setItem("user_id", result.user_id || null);
+                    user_id = result.user_id;//当user_id为空的时候，为未登录，需要跳转到登录页面
+                }
                 yield put({
                     type: 'changeLogin',
                     payload: {
-                        loginStatus
+                        user_id
                     }
                 });
-                yield put({
-                    type: 'changeAuthority',
-                    payload: {
-                        authority
-                    }
-                })
             } catch (err) {
                 console.log(`err is ${err}`)
             }
 
         },
         //解除绑定
-        * removeBind(_: null, {call, put}: any) {
+        * releaseBind(_: null, {call, put}: any) {
             try {
-                yield call(gain_remove_bind);
+                let result: any = yield call(gain_remove_bind);
                 yield put({
                     type: 'changeLogin',
                     payload: {
                         loginStatus: false
                     }
                 });
+                localStorage.removeItem("user_id");
+                return result;
             } catch (err) {
-                console.log(`err is ${err}`)
+                console.log(`err is ${err}`);
+                return Promise.reject(err);
             }
+
         }
     }
 }

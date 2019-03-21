@@ -28,6 +28,7 @@ let data = [
                 //等级分数线及比例
                 course_id: 0,
                 data: {
+                    schoolProportionSwitch:true,//校单科为ｔｒｕｅ
                     //等级分数线及比例
                     gradeLineArr: [
                         {

@@ -49,9 +49,9 @@ class Bind extends Component <PageOwnProps, PageState> {
                         onClick={this.props.submitAll.bind(this)}>
                     绑定
                 </Button>
-                <p className={'bind-info'}>
-                    注：开通园丁邦服务时，工作人员将下发园丁邦账号密码，忘记密码可联系考试管理员（sd_wfkw）重置。
-                </p>
+                {/*<p className={'bind-info'}>*/}
+                    {/*注：开通园丁邦服务时，工作人员将下发园丁邦账号密码，忘记密码可联系考试管理员（sd_wfkw）重置。*/}
+                {/*</p>*/}
             </div>
         )
     }

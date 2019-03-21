@@ -3,7 +3,7 @@
  * @param {string} url 传入的url，获取url中"?"符后的字串
  * @return {object} the() 返回截取的参数
  * */
-class GetRequest {
+export default class GetRequest {
     constructor(public url: string = location.search) {
         this.url = url;//获取url中"?"符后的字串
     }

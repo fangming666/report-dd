@@ -1,6 +1,7 @@
 /**
  * 等级分数线及比例
  *  gradeLineArr: any[],
+ *  schoolProportionSwitch?: boolean//校比例的开关
  * */
 import {Table} from "antd";
 import * as React from "react";
@@ -13,7 +14,7 @@ import * as PieLabel from "@antv/f2/lib/plugin/pie-label"
 
 type PageOwnProps = {
     data: any,
-    schoolProportionSwitch?: boolean//校比例的开关
+
 
 }
 
@@ -23,9 +24,6 @@ type PageState = {
 
 class GradeLine extends Component <PageOwnProps, PageState> {
 
-    static defaultProps = {
-        schoolProportionSwitch: false
-    };
 
     constructor(props: any) {
         super(props);
@@ -64,17 +62,17 @@ class GradeLine extends Component <PageOwnProps, PageState> {
                 },
                 {
                     title: '分数线',
-                    width: 100,
+                    width: 110,
                     dataIndex: 'score',
                     render: (text: string) => <span className={'td-school-name'}>{text}</span>
                 },
                 {
-                    title: `${this.props.schoolProportionSwitch ? '校比例 | 联考(%)' : '人数'}`,
-                    dataIndex: `${this.props.schoolProportionSwitch ? 'scale' : 'people'}`,
+                    title: `${this.props.data.schoolProportionSwitch ? '校比例 | 联考(%)' : '人数'}`,
+                    dataIndex: `${this.props.data.schoolProportionSwitch ? 'scale' : 'people'}`,
                     align: 'center',
                     width: 100,
                     render: (text: string, record: any) => {
-                        if (this.props.schoolProportionSwitch) {
+                        if (this.props.data.schoolProportionSwitch) {
                             return <div>
                                 <span
                                     className={`${text > record.examination ? 'contrast-success ' : text < record.examination ? 'contrast-danger' : 'contrast-normal'}`}>
@@ -89,8 +87,8 @@ class GradeLine extends Component <PageOwnProps, PageState> {
                         }
                     }
                 }, {
-                    title: `${this.props.schoolProportionSwitch ? '排名' : '比例(%)'}`,
-                    dataIndex: `${this.props.schoolProportionSwitch ? 'ranking' : 'scale'}`,
+                    title: `${this.props.data.schoolProportionSwitch ? '排名' : '比例(%)'}`,
+                    dataIndex: `${this.props.data.schoolProportionSwitch ? 'ranking' : 'scale'}`,
                     align: 'center',
                     render: (text: string) => <span className={'td-school-other'}>{text}</span>
                 }

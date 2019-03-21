@@ -2,17 +2,17 @@ let Mock = require("mockjs");
 let express = require("express");
 
 let router = express.Router();
-router.use("/individual", (req, res) => {
+router.use("/talk/user/index", (req, res) => {
     setTimeout(() =>{
         let data = Mock.mock({
-            code: 0,
-            message: '',
-            accountNumber:'sd_wfkw',
-            username:'房明',
-            teach:[
-                "八年级7班  数学",
-                "八年级8班  数学",
-                "八年级9班  数学"
+            status: 200,
+            msg: '',
+            real_name:'sd_wfkw',//real_name
+            username:'房明',//username
+            teacher_class:[//teacher_class
+                {class_name:'八年级7班',course_name:'数学'},//class_name班级 course_name科目
+                {class_name:'八年级7班',course_name:'数学'},//class_name班级 course_name科目
+                {class_name:'八年级7班',course_name:'数学'},//class_name班级 course_name科目
             ]
         });
         return res.json(data)

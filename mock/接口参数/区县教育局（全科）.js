@@ -7,8 +7,8 @@ let data = [
                 "view": "epitome/epitome",
                 "course_id": 1,
                 "data": {
-                    rank:true,//概括内容的显示开关，此时为true，
-                    rankTitle:true,//title的显示方式，此时为true
+                    rank:true,//概括内容的显示开关，此时为true(众数中位数)，false（最高分排名）
+                    rankTitle:true,//title的显示方式，此时为true（无法查看缺考名单），false(可以查看缺考名单)
                     "averageTitle": '平均分',//概括的标题
                     "schoolNum": 8,//学校总数量
                     "peopleNum": 2456,//学生总数量

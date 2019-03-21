@@ -8,7 +8,7 @@ import IndividualImg from "../../assets/imgs/Individual.svg";
 type PageOwnProps = {
     app: any,
     dispatch: any,
-    examList: any
+    exam_list: any
 }
 
 type PageState = {
@@ -31,14 +31,53 @@ const hoc = (WrappedComponent: React.ComponentType<{}>): React.ComponentClass<{}
 
         public async componentDidMount() {
             let {dispatch} = this.props;
-            await dispatch({
-                type: "exam_list/queryExam",
-                payload: {}
-            });
+            let currPage = this.props.exam_list._currPage;
+            try {
+                await dispatch({
+                    type: "app/changeBack",
+                    payload: {
+                        backSwitch: false
+                    }
+                });
+                await dispatch({
+                    type: "app/changeShelter",
+                    payload: {shelter: true}
+                });
+                await dispatch({
+                    type: "exam_list/queryExam",
+                    payload: {initSwitch: true, currPage}
+                });
+                await dispatch({
+                    type: "app/changeShelter",
+                    payload: {shelter: false}
+                });
+
+            } catch (e) {
+
+            }
+        }
+
+        public componentWillUnmount(): void {
+            //当前页码减一，方便下次调取相加是正确的
+            // let {dispatch} = this.props;
+            // dispatch({
+            //     type: "exam_list/reduceCurrPage",
+            //     payload: {}
+            // });
+            if (!this.props.app._backSwitch) {
+                this.context.router.history.push({pathname: '/'});
+            }
+
         }
 
         //跳转到个人中心页面
-        private goIndividual() {
+        private async goIndividual() {
+            await this.props.dispatch({
+                type: "app/changeBack",
+                payload: {
+                    backSwitch: true
+                }
+            });
             this.context.router.history.push({pathname: '/individual'});
         }
 

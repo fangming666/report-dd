@@ -6,8 +6,8 @@ import {Component} from "react";
 import "./pubNav.scss"
 import {Affix} from 'antd';
 import * as jquery from "jquery";
-import navLeftImg from "/src/assets/imgs/nav-left.svg";//左边小箭头
-import navRightImg from "/src/assets/imgs/nav-right.svg";//右边小箭头
+import navLeftImg from "./../../../assets/imgs/nav-left.svg";//左边小箭头
+import navRightImg from "./../../../assets/imgs/nav-right.svg";//右边小箭头
 
 
 type PageOwnProps = {
@@ -16,7 +16,7 @@ type PageOwnProps = {
 }
 
 type PageState = {
-    activeIndex: number,
+    activeNum: number,
     navLeftSwitch: boolean,
     navRightSwitch: boolean,
     sumNavWidth: number,
@@ -28,7 +28,7 @@ class PubNav extends Component <PageOwnProps, PageState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            activeIndex: 0,//根据index索引进行active类名的赋值
+            activeNum: 0,//根据index索引进行active类名的赋值
             navLeftSwitch: false,//左边小箭头显示开关
             navRightSwitch: false,//右边小箭头显示开关
             sumNavWidth: 0,//科目导航的总宽度
@@ -42,9 +42,10 @@ class PubNav extends Component <PageOwnProps, PageState> {
 
     //子项的点击事件
     private navClick(...data: any): void {
-        let [index, item] = data;
+        let [index, item,event] = data;
+        event.preventDefault();
         this.setState({
-            activeIndex: index
+            activeNum: index
         });
         //@ts-ignore
         this.props.subNavClick(item);
@@ -123,8 +124,8 @@ class PubNav extends Component <PageOwnProps, PageState> {
                                 {this.props.navArr.map((item: any, index: number) => {
                                     return <span
                                         key={index}
-                                        onClick={this.navClick.bind(this, index, item)}
-                                        className={`pub-nav-item ${this.state.activeIndex === index && 'pub-nav-active'}`}>{item}</span>
+                                        onClick={this.navClick.bind(this, index, item,event)}
+                                        className={`pub-nav-item ${this.state.activeNum === index && 'pub-nav-active'}`}>{item}</span>
                                 })
                                 }
 

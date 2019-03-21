@@ -38,7 +38,7 @@ class CenterRoute extends Component<PageOwnProps, PageState> {
                 if (this.props.app._loginSpring) {
                     await this.gainLogin();
                     //当没绑定的时候跳到绑定页面
-                    if (!this.props.app._loginStatus) {
+                    if (!this.props.app._userId) {
                         this.context.router.history.push({pathname: '/bind'});
                     }
                 }
@@ -46,11 +46,17 @@ class CenterRoute extends Component<PageOwnProps, PageState> {
 
             }
         } else {
-            // await this.gainLogin();
-            // //当没绑定的时候跳到绑定页面
-            // if (this.props.app._loginStatus) {
-            //     this.context.router.history.push({pathname: '/'});
-            // }
+            await this.gainLogin();
+            //当没绑定的时候跳到绑定页面
+            if (this.props.app._userId) {
+                this.props.dispatch({
+                    type: "app/changeBack",
+                    payload: {
+                        backSwitch: true
+                    }
+                });
+                this.context.router.history.push({pathname: '/'});
+            }
 
         }
     }

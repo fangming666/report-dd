@@ -2,11 +2,11 @@ let Mock = require("mockjs");
 let express = require("express");
 
 let router = express.Router();
-router.use("/chooseReport", (req, res) => {
+router.use("/talk/exam/group", (req, res) => {
     setTimeout(() => {
         let data = Mock.mock({
-            code: 0,
-            message: '',
+            status: 200,
+            msg: '',
             data: [
                 {
                     title: "联考整体报告",
@@ -28,6 +28,14 @@ router.use("/chooseReport", (req, res) => {
                         {name: "英语", id: 3},
                         {name: "思想品德", id: 4},
                         {name: "物理", id: 5}
+                    ],
+                    classList:[
+                        {name: "计算机系软件技术1301", id: 0},
+                        {name: "2班", id: 1},
+                        {name: "3班", id: 2},
+                        {name: "4班", id: 3},
+                        {name: "5班", id: 4},
+                        {name: "6班", id: 5}
                     ]
                 },
                 {

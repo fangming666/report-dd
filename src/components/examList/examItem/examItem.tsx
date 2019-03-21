@@ -9,6 +9,7 @@ import {Component} from "react";
 import {connect} from "dva";
 import "./examItem.scss"
 import hoc from "./hoc"
+import {ExamGradeColor} from "../../../utils/index"
 import NoAnnounce from "./../../noAnnounce/noAnnounce"
 import PubModel from "../../public/pubModel/pubModel"
 // import Test from "./test"
@@ -21,28 +22,21 @@ type PageOwnProps = {
     refresh: () => any,
     openReport: () => any,
     ptr: any,
-    state:any
+    state: any
 
 }
 type PageState = {
     refreshing: boolean,
     height: number,
-    announceSwitch: boolean,
-    reportArr: any[],
-    modelSwitch: boolean,
-    grade: string,
-    examName: string,
-
 }
 
-@connect(({exam_list}: any) => ({
-    exam_list
+@connect(({exam_list,app}: any) => ({
+    exam_list,app
 }))
 @hoc
 class ExamItem extends Component <PageOwnProps, PageState> {
 
     public render() {
-        // @ts-ignore
         return (
             <div className={'exam-item-warp'}>
                 {this.props.state.announceSwitch ? <NoAnnounce announceText={'成绩暂未发布'}>
@@ -51,8 +45,8 @@ class ExamItem extends Component <PageOwnProps, PageState> {
                     <PubModel headTitle={'选择查看的报告'} closeModel={this.props.closeOwnModel.bind(this)}>
                         {this.props.state.reportArr.length && this.props.state.reportArr.map((item: any, index: number) => {
                             return <div className={'model-item'} key={index}
-                                        onClick={this.props.toReport.bind(this, item.reportId)}>
-                                {item.name}
+                                        onClick={this.props.toReport.bind(this, item.group_id)}>
+                                {item.group_name}
                             </div>
                         })}
                     </PubModel>
@@ -76,17 +70,18 @@ class ExamItem extends Component <PageOwnProps, PageState> {
                 >
                     {this.props.exam_list._examArr.map((item: any, index: number) => {
                         return <div className={'exam clearfix'} key={index}
-                                    onClick={this.props.openReport.bind(this, item.promulgate, item.report, item.grade, item.examName)}>
-                               <span className={"exam-grade float-left"} style={{background: item.color}}>
-                                   {item.grade}
+                                    onClick={this.props.openReport.bind(this, item.status, item.groups, item.gradeLabel, item.title, item.exam_id)}>
+                               <span className={"exam-grade float-left"}
+                                     style={{background: new ExamGradeColor(+item.grade).give()}}>
+                                   {item.gradeLabel}
                                </span>
                             <div className={"exam-message float-left"}>
                                 <p className={'exam-name'}>
-                                    {item.examName}
+                                    {item.title}
                                 </p>
                                 <p className={"clearfix"}>
-                                    <span>{item.schoolNum}所学校</span><span>{item.subjectNum}个科目</span>
-                                    <span className={'float-right'}>{item.time}</span>
+                                    <span>{item.schoolNum}所学校</span><span>{item.paper_num}个科目</span>
+                                    <span className={'float-right'}>{item.exam_time}</span>
                                 </p>
                             </div>
                         </div>

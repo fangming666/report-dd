@@ -2,12 +2,13 @@ let Mock = require("mockjs");
 let express = require("express");
 
 let router = express.Router();
-router.use("/bind", (req, res) => {
+router.use("/talk/login/index", (req, res) => {
     setTimeout(() => {
         let data = Mock.mock({
-            code: 0,
-            message: '登录成功',
-            authority: 0//权限：0教育局，1教研员，2校长，3学校教研员，4班主任，5任课老师
+            status: 200,
+            mag: '登录成功',
+            talk_user_id: 123,
+            user_id: 456
         });
         return res.json(data)
     }, 1000)

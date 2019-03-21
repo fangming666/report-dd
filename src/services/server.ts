@@ -11,19 +11,14 @@ function checkStatus(response: any) {
         // 传递参数到下级
         return response.json();
     }
-    const error: any = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    throw new Error('fail++');
 }
 
 //处理code
 function manageCode(data: any) {
     // 判断是否有一些需要全局拦截的自定义code
-    switch (data.code) {
-        case 1:
-            return new Promise((resolve, reject) => reject("参数错误"));
-        default:
-            break;
+    if (data.status !== 200) {
+        throw new Error(`${data.status}++${data.msg}`);
     }
     // 传递参数到下级
     return data;
@@ -39,6 +34,11 @@ function manageCode(data: any) {
  */
 const request = (url: string, options: any = {}, shelterSwitch: boolean = false) => {
     Toast.loading('Loading...', 0);
+    // @ts-ignore
+    const user_id: string | number | null = JSON.parse(localStorage.getItem("user_id"))||null;
+    // @ts-ignore
+    const talk_user_id: string | number | null = JSON.parse(localStorage.getItem("talk_user_id"))||null;
+    options = {...options, user_id, talk_user_id};
     if (shelterSwitch) {
         myEmitter.emit("TOGGLE_Shelter", true);
         myEmitter.emit("TOGGLE_content", false);
@@ -55,7 +55,7 @@ const request = (url: string, options: any = {}, shelterSwitch: boolean = false)
             .then(manageCode),
         //fetch进行超时操作
         new Promise(function (resolve, reject) {
-            setTimeout(() => reject(new Error('request timeout')), 15000)
+            setTimeout(() => reject(new Error('request timeout')), 60000)
         })])
         .then(data => {
             if (shelterSwitch) {
@@ -67,13 +67,17 @@ const request = (url: string, options: any = {}, shelterSwitch: boolean = false)
             return data;
         })
         .catch(err => {
-                throw new Error(err);
-                if (shelterSwitch) {
-                    myEmitter.emit("TOGGLE_Shelter", false);
-                }
-                myEmitter.emit("TOGGLE_content", false);
-                myEmitter.emit("TOGGLE_err", true);
                 Toast.hide();
+                if (err.message && (+err.message.split("++")[0] === 200 || err.message.split("++")[0] === 'fail')) {
+                    if (shelterSwitch) {
+                        myEmitter.emit("TOGGLE_Shelter", false);
+                    }
+                    myEmitter.emit("TOGGLE_content", false);
+                    myEmitter.emit("TOGGLE_err", true);
+                } else {
+                    Toast.info(err.message ? err.message.split("++")[1] : 'error', 2);
+                }
+                return Promise.reject(err);
             }
         );
 };

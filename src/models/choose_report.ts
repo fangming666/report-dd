@@ -3,7 +3,7 @@ import {gain_choose_report} from "../services";
 export default {
     namespace: 'choose_report',
     state: {
-        _chooseReportList: [],
+        _chooseReportList: [],//列表
         _parentIndex: -1,
         _ownIndex: -1
     },
@@ -12,7 +12,7 @@ export default {
         "changeChooseReport"(state: any, {payload: {data}}: any) {
             return {
                 ...state,
-                _chooseReportList: data
+                _chooseReportList: data,
             }
         },
         //修改index方便对比进行active的显示
@@ -26,14 +26,19 @@ export default {
     },
     effects: {
         * queryChooseReport({payload}: any, {call, put}: any) {
-            let result: any = yield call(gain_choose_report, payload);
-            let {data} = result;
-            yield put({
-                type: 'changeChooseReport',
-                payload: {
-                    data
-                }
-            })
+            try{
+                let result: any = yield call(gain_choose_report, payload);
+                let {data} = result;
+                yield put({
+                    type: 'changeChooseReport',
+                    payload: {
+                        data
+                    }
+                })
+            }catch(err){
+                return Promise.reject(err);
+            }
+
         }
     }
 }

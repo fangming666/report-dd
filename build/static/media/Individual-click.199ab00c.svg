@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Group Copy 20</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M7,5.5 C7.01635234,5.7614212 7.01635234,8.42250824 7,8.5 C7.10009307,11.4848792 9.52413904,12.5044403 9.5,13.5 C9.5209268,16.0076294 3.64739481,16.5648101 2,18 C0.712792718,19.3866679 1,21.5 1,21.5 L23,21.5 C23,21.5 23.2789239,19.3866679 22,18 C20.3610236,16.5648101 14.4894591,15.9969025 14.5,13.5 C14.4876257,12.5038147 16.9246732,11.4953101 17,8.5 C16.9859045,8.42814636 17,5.5 17,5.5 C16.9683387,0.71055603 12.7275101,0.5 12,0.5 C11.2972562,0.5 7.03827434,0.710174561 7,5.5 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-Copy-20">
+            <path d="M19,37.5 C8.78273213,37.5 0.5,29.2172679 0.5,19 C0.5,8.78273213 8.78273213,0.5 19,0.5 C29.2172679,0.5 37.5,8.78273213 37.5,19 C37.5,29.2172679 29.2172679,37.5 19,37.5 Z" id="Oval" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <g id="icon_people_fill" transform="translate(7.000000, 8.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask"></g>
+                <g id="🎨颜色" mask="url(#mask-2)" fill="#28BCFF">
+                    <g transform="translate(0.000000, -1.000000)" id="common_level1_icon_bg_color">
+                        <rect x="0" y="0" width="24" height="23"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

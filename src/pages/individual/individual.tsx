@@ -5,7 +5,7 @@ import * as PropTypes from "prop-types";
 import * as React from "react";
 import {Component} from "react";
 import {connect} from "dva";
-import {Button, List, Modal,Toast} from "antd-mobile"
+import {Button, List, Modal, Toast} from "antd-mobile"
 import './individual.scss';
 import ListHead from "./../../components/listHead/listHead"
 import IndividualItem from "./../../components/individual/individualItem/individualItem"
@@ -15,7 +15,7 @@ const alert = Modal.alert;
 type PageOwnProps = {
     dispatch: any,
     individual: any,
-    history:any
+    history: any
 }
 
 type PageState = {}
@@ -53,17 +53,17 @@ class Individual extends Component <PageOwnProps, PageState> {
 
     //请求解除绑定
     private async goRemove() {
+        let {dispatch, history} = this.props;
         try {
-            let {dispatch,history} = this.props;
-            await dispatch({
-                type: "app/removeBind"
+             await dispatch({
+                type: "app/releaseBind"
             });
-            Toast.info("解除成功",1);
+            Toast.info("解除成功", 1);
             setTimeout(() => {
                 history.push({pathname: '/bind'});
             }, 1500)
         } catch (e) {
-
+            console.log("e isis", e)
         }
 
     }
@@ -82,9 +82,9 @@ class Individual extends Component <PageOwnProps, PageState> {
                         {this.props.individual._username}
                     </IndividualItem>
                     <IndividualItem individualItemName="任教信息">
-                        {this.props.individual._teach && this.props.individual._teach.map((item: string, index: number) => {
+                        {this.props.individual._teach && this.props.individual._teach.map((item: any, index: number) => {
                             return <p key={index}>
-                                {item}
+                                {item.class_name}&nbsp;&nbsp;{item.course_name}
                             </p>
                         })}
                     </IndividualItem>

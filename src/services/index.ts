@@ -52,7 +52,7 @@ export function gain_exam(reqObj: any) {
 }
 
 /**
- * 区县教研员全科
+ * 获取报告
  * */
 export function gain_bureauEducation(reqObj: any) {
     return request(bureauEducationApi, reqObj)
